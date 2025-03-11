@@ -1,16 +1,23 @@
 ﻿using System.Data;
-class AdmissionSerVice
+class AdmissionService
 {
     private readonly AdmissionRepository _admissionRepository;
-    public AdmissionSerVice(AdmissionRepository admissionRepository)
+    public AdmissionService(AdmissionRepository admissionRepository)
     {
-
         _admissionRepository = admissionRepository;
     }
 
     public DataTable? GetAllAdmissions() // lay ds
     {
-        return _admissionRepository.GetAllAdmissions();
+        try
+        {
+            return _admissionRepository.GetAllAdmissions();
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Lấy ds: " + e.Message);
+        }
     }
 
     public void RegisterAdmission(Admission admission)
@@ -74,11 +81,18 @@ class AdmissionSerVice
 
     public DataTable? SearchAdmission(string keyword)
     {
-        if(keyword == null)
+        if (keyword == null)
         {
             throw new Exception("Vui lòng nhập từ khóa tìm kiếm");
         }
-        return _admissionRepository.SearchAdmission(keyword);
+        try {
+            return _admissionRepository.SearchAdmission(keyword);
+
+        }
+        catch(Exception e)
+        {
+            throw new Exception("Looix: " + e.Message);
+        }
     }
 
     public void ApproveAdmission(long admissionId)

@@ -49,7 +49,7 @@ public class ProgramRepository
     {
         using var connection = new MySqlConnection(_connectionString);
         connection.Open();
-        const string query = "UPDATE program SET program_name = @program_name WHERE program_id = @id";
+        const string query = "UPDATE program SET program_id = @program_id, program_name = @program_name WHERE program_id = @id";
         using var cmd = new MySqlCommand(query, connection);
         cmd.Parameters.AddWithValue("@program_name", newProgramName);
         cmd.Parameters.AddWithValue("@id", programId);
