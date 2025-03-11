@@ -164,56 +164,28 @@ namespace qlsv_dang_nhap.View
         {
             try
             {
-                Console.WriteLine($"Debug - SelectedDate: {dob.SelectedDate}");
-                // Kiểm tra dữ liệu
-                if (string.IsNullOrEmpty(txtHoTen.Text))
-                {
-                    MessageBox.Show("Họ tên không được để trống");
-                    return;
-                }
-                if (string.IsNullOrEmpty(txtTenCTDT.Text))
-                {
-                    MessageBox.Show("Tên chương trình đào tạo không được để trống");
-                    return;
-                }
-                if (!dob.SelectedDate.HasValue) // ✅ Đã sửa ở đây
-                {
-                    MessageBox.Show("Ngày sinh không được để trống");
-                    return;
-                }
-                if (cbGioiTinh.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Giới tính không được để trống");
-                    return;
-                }
-                if (cbTrangThai.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Trạng thái không được để trống");
-                    return;
-                }
+                //định dạng lại dữ liều đầu vào để phù hợp với db
+                string ngaysinh = dpNgaySinh.SelectedDate?.ToString("yyyy-MM-dd");
+                long abc = long.Parse(txtTenCTDT.Text);
 
-                // Xử lý ngày sinh (đã đảm bảo SelectedDate != null)
-                DateOnly ngaysinh = DateOnly.FromDateTime(dob.SelectedDate.Value);
-
-                // Tạo đối tượng (không gán AdmissionId)
                 var admission = new Admission
                 {
+                    ProgramId = abc,
                     FullName = txtHoTen.Text.Trim(),
                     DOB = ngaysinh,
-                    Gender = cbGioiTinh.SelectedItem?.ToString() ?? "",
-                    StatusAdmission = cbTrangThai.SelectedItem?.ToString() ?? ""
+                    Gender = ((ComboBoxItem)cbGioiTinh.SelectedItem)?.Content.ToString(),
+                    StatusAdmission = ((ComboBoxItem)cbTrangThai.SelectedItem)?.Content.ToString()
                 };
 
                 // Gọi service
                 _admissionService.RegisterAdmission(admission);
-
                 MessageBox.Show("Đã thêm hồ sơ thành công!");
-                LoadData();
+                LoadData(); //load lai bang?
 
                 // Reset form
                 txtHoTen.Text = string.Empty;
                 txtTenCTDT.Text = string.Empty; // Thêm dòng này nếu cần
-                dob.SelectedDate = null;
+                dpNgaySinh.SelectedDate = null;
                 dob.Text = string.Empty; // ⭐ Thêm dòng này để clear hiển thị
                 cbGioiTinh.SelectedIndex = -1;
                 cbTrangThai.SelectedIndex = -1;
@@ -222,8 +194,7 @@ namespace qlsv_dang_nhap.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi",
-                              MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}");
             }
         }
 

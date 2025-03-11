@@ -79,9 +79,8 @@
                                                    VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Grid.Row="1">
-                                        <DatePicker x:Name="dob" 
-                                                    Width="225"
-                                                    SelectedDateFormat="Long"
+                                        <TextBox x:Name="dob" 
+                                                    Width="225" 
                                                     VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     </Border>
                                 </Grid>
