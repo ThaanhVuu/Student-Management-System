@@ -74,6 +74,20 @@ class AdmissionSerVice
 
     public DataTable? SearchAdmission(string keyword)
     {
+        if(keyword == null)
+        {
+            throw new Exception("Vui lòng nhập từ khóa tìm kiếm");
+        }
         return _admissionRepository.SearchAdmission(keyword);
+    }
+
+    public void ApproveAdmission(long admissionId)
+    {
+        _admissionRepository.ApproveAdmission(admissionId);
+    }
+
+    public void RejectAdmission(long admissionId)
+    {
+        _admissionRepository.RejectAdmission(admissionId);
     }
 }
