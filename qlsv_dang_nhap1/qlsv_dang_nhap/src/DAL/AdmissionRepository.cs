@@ -69,6 +69,28 @@ public class AdmissionRepository
         command.ExecuteNonQuery();
     }
 
+    //duyet
+    public void ApproveAdmission(long admissionId)
+    {
+        using var connection = new MySqlConnection(_connectionString);
+        connection.Open();
+        const string query = "UPDATE admission SET admission_status = 'Approved' WHERE admission_id = @admission_id";
+        using var command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@admission_id", admissionId);
+        command.ExecuteNonQuery();
+    }
+
+    //tu choi
+    public void RejectAdmission(long admissionId)
+    {
+        using var connection = new MySqlConnection(_connectionString);
+        connection.Open();
+        const string query = "UPDATE admission SET admission_status = 'Rejected' WHERE admission_id = @admission_id";
+        using var command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@admission_id", admissionId);
+        command.ExecuteNonQuery();
+    }
+
     //tim kiem
     public DataTable? SearchAdmission(string keyword)
     {

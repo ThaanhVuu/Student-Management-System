@@ -26,7 +26,6 @@ namespace qlsv_dang_nhap.View
         private AdmissionSerVice _admissionService;
         string keyword;
         DataTable dt;
-        long id;
         public viewAdmin()
         {
             AdmissionRepository _admissionRepository = new AdmissionRepository(connectionString);
@@ -166,7 +165,6 @@ namespace qlsv_dang_nhap.View
             txtTenCTDT.Text = string.Empty;
             dpNgaySinh.SelectedDate = null;
             cbGioiTinh.SelectedIndex = -1;
-            cbTrangThai.SelectedIndex = -1;
         }
        
         // Xử lý các nút trong tab Quản lý tuyển sinh
@@ -184,7 +182,7 @@ namespace qlsv_dang_nhap.View
                     FullName = txtHoTen.Text.Trim(),
                     DOB = ngaysinh,
                     Gender = ((ComboBoxItem)cbGioiTinh.SelectedItem)?.Content.ToString(),
-                    StatusAdmission = ((ComboBoxItem)cbTrangThai.SelectedItem)?.Content.ToString()
+                    StatusAdmission = "Pending"
                 };
 
                 // Gọi service
@@ -231,15 +229,6 @@ namespace qlsv_dang_nhap.View
                 }
 
                 // ComboBox Trạng thái
-                string status = selectedRow["admission_status"].ToString();
-                foreach (ComboBoxItem item in cbTrangThai.Items)
-                {
-                    if (item.Content.ToString() == status)
-                    {
-                        cbTrangThai.SelectedItem = item;
-                        break;
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -273,7 +262,6 @@ namespace qlsv_dang_nhap.View
                     FullName = txtHoTen.Text.Trim(),
                     DOB = ngaysinh,
                     Gender = ((ComboBoxItem)cbGioiTinh.SelectedItem)?.Content.ToString(),
-                    StatusAdmission = ((ComboBoxItem)cbTrangThai.SelectedItem)?.Content.ToString()
                 };
 
                 // Gọi service cập nhật
@@ -291,31 +279,74 @@ namespace qlsv_dang_nhap.View
 
         private void btnXoaHoSo_Click(object sender, RoutedEventArgs e)
         {
+            var selectedRow = lvAdmission.SelectedItem as DataRowView;          
+            if(selectedRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn hồ sơ!");
+                return;
+            }
+            long id2 = Convert.ToInt64(selectedRow["admission_id"]); //validate id
             // TODO: Xóa hồ sơ tuyển sinh
             MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa hồ sơ này?", "Xác nhận",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 // TODO: Thực hiện xóa dữ liệu
-                MessageBox.Show("Đã xóa hồ sơ thành công!");
+                try
+                {
+                    _admissionService.DeleteAdmission(id2);
+                    MessageBox.Show("Đã xóa hồ sơ thành công!");
+                    LoadData();
+                    ResetForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa hồ sơ: {ex.Message}");
+                }
             }
         }
 
         private void btnDuyetHoSo_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Duyệt hồ sơ tuyển sinh
-            MessageBox.Show("Đã duyệt hồ sơ thành công!");
+            var selectedRow = lvAdmission.SelectedItem as DataRowView;
+            if (selectedRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn hồ sơ!");
+                return;
+            }
+            long idd = Convert.ToInt64(selectedRow["admission_id"]);
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn duyệt hồ sơ này?", "Xác nhận",
+                                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                _admissionService.ApproveAdmission(idd);
+
+                MessageBox.Show("Đã duyệt hồ sơ!");
+                LoadData();
+                ResetForm();
+            }
+
         }
 
         private void btnTuChoiHoSo_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Từ chối hồ sơ tuyển sinh
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn từ chối hồ sơ này?", "Xác nhận",
+            var selectedRow = lvAdmission.SelectedItem as DataRowView;
+            if (selectedRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn hồ sơ!");
+                return;
+            }
+            long idd = Convert.ToInt64(selectedRow["admission_id"]);
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn từ chỗi hồ sơ này?", "Xác nhận",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                // TODO: Cập nhật trạng thái hồ sơ
+                _admissionService.ApproveAdmission(idd);
                 MessageBox.Show("Đã từ chối hồ sơ!");
+                LoadData();
+                ResetForm();
             }
         }
 
