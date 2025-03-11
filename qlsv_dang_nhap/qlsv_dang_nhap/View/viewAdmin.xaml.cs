@@ -25,18 +25,45 @@ namespace qlsv_dang_nhap.View
         string connectionString = ConfigurationManager.ConnectionStrings["SMS"].ConnectionString;
         private AdmissionSerVice _admissionService;
         string keyword;
-        DataTable dt;
         public viewAdmin()
         {
             AdmissionRepository _admissionRepository = new AdmissionRepository(connectionString);
             _admissionService = new AdmissionSerVice(_admissionRepository);
             InitializeComponent();
             LoadData();
-
+            LoadDataSinhVien();
         }
 
         // Phương thức để tải dữ liệu ban đầu
         private void LoadData()
+        {
+            try
+            {
+                DataTable newDt;
+                if (string.IsNullOrEmpty(keyword))
+                {
+                    newDt = _admissionService.GetAllAdmissions();
+                }
+                else
+                {
+                    newDt = _admissionService.SearchAdmission(keyword);
+                }
+
+                // Gán lại ItemsSource để kích hoạt cập nhật UI
+                lvAdmission.ItemsSource = newDt?.DefaultView;
+
+                if (newDt?.Rows.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy kết quả");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải danh sách: {ex.Message}");
+            }
+        }
+
+        private void LoadDataSinhVien()
         {
             try
             {
