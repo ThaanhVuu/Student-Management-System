@@ -1,0 +1,699 @@
+﻿<Window x:Class="qlsv_dang_nhap.View.viewTrang_chinh"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:qlsv_dang_nhap.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1080"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        MouseDown="Window_MouseDown"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="HoverTextBlockStyle">
+            <Setter Property="Foreground" Value="#415894"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations" Value="Underline"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Border CornerRadius="12"
+            BorderThickness="3">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#001B48" Offset="0"/>
+                <GradientStop Color="#02457A" Offset="0.75"/>
+                <GradientStop Color="#018ABE" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                    CornerRadius="10,10,0,0">
+                <Border.Background>
+                    <ImageBrush ImageSource="/images/Screenshot 2024-09-23 213946.jpg"
+                                Stretch="UniformToFill"/>
+                </Border.Background>
+                <Grid>
+                    <StackPanel Height="100" Width="380"
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                        <Image Source="/Images/Logo_HAU.png" Width="70" Height="70"/>
+                        <StackPanel Orientation="Vertical" Margin="0,22,0,0">
+                            <StackPanel Height="30"
+                                    Margin="10,0,0,0">
+                                <TextBlock Text="ĐẠI HỌC KIẾN TRÚC HÀ NỘI"
+                                        FontSize="22" FontWeight="Bold"
+                                        Foreground="#0094de"/>
+                            </StackPanel>
+                            <StackPanel Height="3" Background="#0094de"
+                                    Margin="10,0,0,0">
+                            </StackPanel>
+                            <StackPanel Height="30">
+                                <TextBlock Text="HANOI ARCHITECTURAL UNIVERSITY"
+                                       FontSize="17" FontWeight="Bold"
+                                       Foreground="#555151"
+                                       Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Right" Margin="0,0,10,0"
+                                Width="400" Height="100" >
+                        <StackPanel Height="40" Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                            <Button x:Name="btnMinimize"
+                                    BorderThickness="0"
+                                    Content="-"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontFamily="Arial"
+                                    Cursor="Hand"
+                                    Grid.Column="1"
+                                    Click="btnMinimize_Click"
+                                    Margin="0,0,5,0">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#124168"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#0094de"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="18" Height="18"
+                                                CornerRadius="9"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter Margin="6,-3,-3,3"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnMaximize"
+                                    BorderThickness="0"
+                                    Content="⬜"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    FontFamily="Arial"
+                                    Cursor="Hand"
+                                    Click="btnMaximize_Click"
+                                    Margin="0,0,5,0"
+                                    Height="20" Width="20">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#0c2e3d"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#18a3b7"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="18" Height="18"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter Margin="1,-1,0,0"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+                            <Button x:Name="btnClose"
+                                    BorderThickness="0"
+                                    Content="x"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontFamily="Arial"
+                                    Cursor="Hand"
+                                    Grid.Column="2"
+                                    Click="btnClose_Click">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#b0183d"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#ED4B00"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="18" Height="18"
+                                                CornerRadius="9"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter Margin="4,-3.5,-4,3.5"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Height="25" Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,24,0">
+                            <TextBlock Text="Lịch tuần" FontSize="15" FontFamily="Arial"
+                                       Foreground="#415894"
+                                       Style="{StaticResource HoverTextBlockStyle}"/>
+                            <TextBlock Text="I" FontSize="15" FontFamily="Arial"
+                                        Foreground="#555151"
+                                       Margin="8.5,0,0,0"/>
+                            <TextBlock Text="Email" FontSize="15" FontFamily="Arial"
+                                        Foreground="#415894"
+                                       Margin="8.5,0,0,0"
+                                       Style="{StaticResource HoverTextBlockStyle}"/>
+                            <TextBlock Text="I" FontSize="15" FontFamily="Arial"
+                                        Foreground="#555151"
+                                       Margin="8.5,0,0,0"/>
+                            <TextBlock Text="Liên hệ" FontSize="15" FontFamily="Arial"
+                                        Foreground="#415894"
+                                       Margin="8.5,0,0,0"
+                                       Style="{StaticResource HoverTextBlockStyle}"/>
+                            <TextBlock Text="I" FontSize="15" FontFamily="Arial"
+                                        Foreground="#555151"
+                                       Margin="8.5,0,0,0"/>
+                            <TextBlock Text="Sơ đồ trang" FontSize="15" FontFamily="Arial"
+                                        Foreground="#415894"
+                                       Margin="8.5,0,0,0"
+                                       Style="{StaticResource HoverTextBlockStyle}"/>
+                        </StackPanel>
+                        <!--search-->
+                        <StackPanel Height="30" Width="310"
+                                    Orientation="Horizontal" HorizontalAlignment="Right"
+                                    Margin="0,0,5,0">
+                            <Border CornerRadius="5" BorderBrush="#415894" BorderThickness="1" Background="White">
+                                <Grid>
+                                    <TextBox x:Name="txtSearch"
+                                             Width="290"
+                                             Height="25"
+                                             FontSize="11"
+                                             Padding="5"
+                                             VerticalContentAlignment="Center"
+                                             Background="Transparent"
+                                             BorderThickness="0"
+                                             Foreground="#000000"
+                                             TextChanged="txtSearch_TextChanged"
+                                             GotFocus="txtSearch_GotFocus"
+                                             LostFocus="txtSearch_LostFocus"/>
+                                    <TextBlock x:Name="txtPlaceholder"
+                                               Text="Tìm kiếm..."
+                                               FontSize="14"
+                                               Foreground="Gray"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="5,0,0,0"
+                                               IsHitTestVisible="False"/>
+                                    <Button x:Name="btnSearchIcon"
+                                            Width="22"
+                                            Height="22"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Right"
+                                            Margin="0,0,5,0"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Click="btnSearchIcon_Click">
+                                        <Button.Content>
+                                            <Image Source="/Images/icons8-search-50.png"
+                                                   Width="22"
+                                                   Height="22"/>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" Background="#415894">
+                <DockPanel LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Left"
+                                Orientation="Horizontal" 
+                                Margin="10,0,0,0">
+                        <!--button_trang_chu-->
+                        <Button x:Name="trang_chu" 
+
+                                Background="Transparent" BorderBrush="Transparent"
+                                Click="trang_chu_click">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/images/icons8-home-50.png" 
+                                       Height="20" Width="20"
+                                       Margin="0,0,5,0"/>
+                                <TextBlock Text="Trang chủ" 
+                                           FontSize="12" Foreground="White" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <!-- button_chuong_trinh_dao_tao-->
+                        <Button x:Name="chuong_trinh_dao_tao" 
+                                Height="30" Width="150"
+                                Margin="5,0,0,0"
+                                Background="Transparent" BorderBrush="Transparent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/images/icons8-book-50 (1).png" 
+                                       Height="18" Width="18"
+                                       Margin="0,0,3,0"/>
+                                <TextBlock Text="Chương trình đào tạo" 
+                                           FontSize="12" Foreground="White" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <!--button_dang_ki-->
+                        <Button x:Name="dang_ki" 
+                                Height="30" Width="80"
+                                Margin="5,0,0,0"
+                                Background="Transparent" BorderBrush="Transparent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/images/icons8-task-50 (1).png" 
+                                       Height="21" Width="21"
+                                       Margin="0,0,3,0"/>
+                                <TextBlock Text="Đăng kí" 
+                                           FontSize="12" Foreground="White" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <!--button_thong_tin_ca_nhan-->
+                        <Button x:Name="thong_tin_ca_nhan" 
+                                Height="30" Width="140"
+                                Margin="5,0,0,0"
+                                Background="Transparent" BorderBrush="Transparent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/images/icons8-name-32.png" 
+                                       Height="23" Width="23"
+                                       Margin="0,0,3,0"/>
+                                <TextBlock Text="Thông tin cá nhân" 
+                                           FontSize="12" Foreground="White" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <!--button_danh_gia-->
+                        <Button x:Name="danh_gia" 
+                                Height="30" Width="85"
+                                Margin="5,0,0,0"
+                                Background="Transparent" BorderBrush="Transparent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/images/icons8-pass-fail-32 (1).png" 
+                                       Height="20" Width="20"
+                                       Margin="0,0,3,0"/>
+                                <TextBlock Text="Đánh giá" 
+                                           FontSize="12" Foreground="White" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <!--button_tai_chinh-->
+                        <Button x:Name="tai_chinh" 
+                                Height="30" Width="85"
+                                Margin="5,0,0,0"
+                                Background="Transparent" BorderBrush="Transparent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/images/icons8-card-wallet-32 (1).png" 
+                                       Height="20" Width="20"
+                                       Margin="0,0,3,0"/>
+                                <TextBlock Text="Tài chính" 
+                                           FontSize="12" Foreground="White" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <!--button_dich_vu-->
+                        <Button x:Name="dich_vu" 
+                                Height="30" Width="80"
+                                Margin="5,0,0,0"
+                                Background="Transparent" BorderBrush="Transparent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/images/icons8-headset-32 (1).png" 
+                                       Height="20" Width="20"
+                                       Margin="0,0,3,0"/>
+                                <TextBlock Text="Dịch vụ" 
+                                           FontSize="12" Foreground="White" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <!--button_khai_bao_y_te-->
+                        <Button x:Name="khai_bao_y_te" 
+                                Height="30" Width="110"
+                                Margin="5,0,0,0"
+                                Background="Transparent" BorderBrush="Transparent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/images/icons8-medical-32 (1).png" 
+                                       Height="20" Width="20"
+                                       Margin="0,0,3,0"/>
+                                <TextBlock Text="Khai báo y tế" 
+                                           FontSize="12" Foreground="White" FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <!--button_thoat-->
+                    <Button x:Name="thoat" DockPanel.Dock="Right"  
+                            Height="30" Width="110"
+                            Background="Transparent" BorderBrush="Transparent">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/images/icons8-test-account-32.png" 
+                                   Height="20" Width="20"
+                                   Margin="0,0,3,0"/>
+                            <TextBlock Text="Thoát" 
+                                       FontSize="12" Foreground="White" FontWeight="Bold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <!--popup-->
+                    <Popup x:Name="menuPopup_CTDT" PlacementTarget="{Binding ElementName=chuong_trinh_dao_tao}" Placement="Bottom" StaysOpen="False">
+                        <Border Background="#415894" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                            <StackPanel>
+                                <Button Width="150" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-book-64.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"
+                                               />
+                                        <TextBlock Text="Toàn trường" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="150" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-moleskine-24.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Chuyên ngành chính" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="150" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-moleskine-26.png"
+                                               Height="14" Width="14" Margin="2,0,7,0"/>
+                                        <TextBlock Text="Chuyên ngành thứ 2" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--popup_DK-->
+                    <Popup x:Name="menuPopup_DK" PlacementTarget="{Binding ElementName=dang_ki}" Placement="Bottom" StaysOpen="False">
+                        <Border Background="#415894" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                            <StackPanel>
+                                <Button Width="250" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left"
+                                        Click="dang_ky_click">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-list-50.png"
+                                                Height="18" Width="15" Margin="2,0,5,0"/>
+                                        <TextBlock Text="Đăng ký học theo chương trình đào tạo"
+                                                   Foreground="White" FontWeight="Bold" 
+                                                   Margin="1,0,0,0"
+                                                   />
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="250" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-list-50 (1).png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Kết quả đăng ký học" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--popup_TTCN-->
+                    <Popup x:Name="menuPopup_TTCN" PlacementTarget="{Binding ElementName=thong_tin_ca_nhan}" Placement="Bottom" StaysOpen="False">
+                        <Border Background="#415894" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                            <StackPanel>
+                                <Button Width="140" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left"
+                                        Click="TTCN_click">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-search-account-64.png"
+                                                Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Thông tin cá nhân" Foreground="White" FontWeight="Bold" Margin="0,0,0,0"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="140" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left" 
+                                        Click="kqht_click">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-learning-50.png"
+                                                Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Kết quả học tâp" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="140" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-training-24.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Điểm rèn luyện" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="140" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-schedule-50 (1).png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Thông tin lịch học" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="140" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-schedule-50 (1).png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Lịch thi sinh viên" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--popup_DG-->
+                    <Popup x:Name="menuPopup_DG" PlacementTarget="{Binding ElementName=danh_gia}" Placement="Bottom" StaysOpen="False">
+                        <Border Background="#415894" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                            <StackPanel>
+                                <Button Width="200" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-evaluate-50 (1).png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Hoạt động giảng dạy" Foreground="White" FontWeight="Bold" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="200" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-evaluate-50 (1).png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Khảo sát sinh viên tốt nghiệp" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--popup_TC-->
+                    <Popup x:Name="menuPopup_TC" PlacementTarget="{Binding ElementName=tai_chinh}" Placement="Bottom" StaysOpen="False">
+                        <Border Background="#415894" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                            <StackPanel>
+                                <Button Width="140" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-pay-30.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Thông tin tài chính" Foreground="White" FontWeight="Bold" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="140" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-qr-code-58.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Học phí trực tuyến" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--popup_DV-->
+                    <Popup x:Name="menuPopup_DV" PlacementTarget="{Binding ElementName=dich_vu}" Placement="Bottom" StaysOpen="False">
+                        <Border Background="#415894" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                            <StackPanel>
+                                <Button Width="135" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-facebook-30.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Hỗ trợ sinh viên" Foreground="White" FontWeight="Bold" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="135" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-newspaper-48.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Tin mới nhất" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="135" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-push-notifications-30.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Thông báo" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="135" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-binder-64.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Văn bản biểu mẫu" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="135" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-education-50.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Cựu sinh viên" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="135" Height="30" Background="Transparent" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/images/button_Image/icons8-government-50.png"
+                                               Height="18" Width="18" Margin="0,0,5,0"/>
+                                        <TextBlock Text="Thủ tục một cửa" Foreground="White" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                </DockPanel>
+            </Border>
+            <Border x:Name="borderContainer" Grid.Row="2" 
+                    Background="#efefef" Height="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="376*"/>
+                        <ColumnDefinition Width="49*"/>
+                        <ColumnDefinition Width="85*"/>
+                        <ColumnDefinition Width="333*"/>
+                        <ColumnDefinition Width="38*"/>
+                        <ColumnDefinition Width="23*"/>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="137*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="movingText"
+                   Text="Chào mừng quý vị đến với Cổng thông tin của trường"
+                   FontSize="12"
+                   Foreground="#595d60"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left">
+                        <TextBlock.RenderTransform>
+                            <TranslateTransform x:Name="textTransform"/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3"
+                    Background="#efefef">
+                <ContentControl x:Name="ContentDisplay"/>
+            </Border>
+            <Border Grid.Row="4"
+                    CornerRadius="0,0,10,10"
+                    Background="#efefef">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="450"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0">
+                        <Border.Background>
+                            <ImageBrush ImageSource="/images/Screenshot 2025-03-04 024547.png"
+                                        Stretch="Fill"/>
+                        </Border.Background>
+                    </Border>
+                    <Border Grid.Column="1" Background="#ffffff">
+                        <StackPanel>
+                            <Border >
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Left"
+                                            Margin="2">
+                                    <Image Source="/images/icons8-website-50.png"
+                                           Height="15" Width="15"/>
+                                    <TextBlock Text="website:" FontSize="12" FontWeight="Bold"
+                                               Margin="5,0,0,0"/>
+                                    <TextBlock Margin="30,0,0,0">
+                                        <Hyperlink NavigateUri="https://tinchi.hau.edu.vn/TrangChu/Home#:~:text=%C2%A0%20http%3A//hau.edu.vn/" 
+                                                    RequestNavigate="Hyperlink_RequestNavigate">
+                                                  http://hau.edu.vn/
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                            <Border >
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Left"
+                                            Margin="2">
+                                    <Image Source="/images/icons8-local-30.png"
+                                            Height="15" Width="15"/>
+                                    <TextBlock Text="Địa chỉ:" FontSize="12" FontWeight="Bold"
+                                                Margin="5,0,0,0"/>
+                                    <TextBlock Text="  Km 10, Đường Nguyễn Trãi, Quận Thanh Xuân , TP Hà Nội"
+                                               FontSize="12" FontWeight="Bold" Margin="28,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+                            <Border >
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Left"
+                                            Margin="2">
+                                    <Image Source="/images/icons8-phone-50.png"
+                                           Height="15" Width="15"/>
+                                    <TextBlock Text="Điện thoại:" FontSize="12" FontWeight="Bold"
+                                               Margin="5,0,0,0"/>
+                                    <TextBlock Text=" +84.4.3854.4346"
+                                               FontSize="12" FontWeight="Bold" Foreground="#790000"
+                                               Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+                            <Border >
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Left"
+                                            Margin="2">
+                                    <Image Source="/images/icons8-mail-50.png"
+                                            Height="15" Width="15"/>
+                                    <TextBlock Text="Email:" FontSize="12" FontWeight="Bold"
+                                                Margin="5,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="2"
+                            Background="#ffffff">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Đơn vị phát triển:" Foreground="#595d60" FontSize="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Nhóm 10" HorizontalAlignment="Center"
+                                       Foreground="#415894" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

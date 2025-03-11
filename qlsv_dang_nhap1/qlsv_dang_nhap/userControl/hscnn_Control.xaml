@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="qlsv_dang_nhap.userControl.hscnn_Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:qlsv_dang_nhap.userControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Background="White">
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" >
+                    <DockPanel LastChildFill="False">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                            <TextBlock Text="Mã sinh viên:" FontWeight="Bold" VerticalAlignment="Center"
+                                       Margin="20,0,0,0"/>
+                            <TextBlock Text="mã_sinh_viên" Foreground="Red" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                            <Button Height="25" Width="100"
+                                Content="Sửa thông tin"
+                                Foreground="#3267b1" FontWeight="Bold"
+                                Background="#f6c74d"
+                                />
+                            <Button Height="25" Width="100"
+                                    Content="Xóa thông tin"
+                                    Foreground="White" FontWeight="Bold"
+                                    Background="#ea6a38"
+                                    Margin="5,0,10,0"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+                <Border Grid.Row="1">
+                    <TextBlock Text="SƠ YẾU LÝ LỊCH SINH VIÊN"
+                               FontSize="20" FontFamily="Arial" FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="2" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Họ và tên: "
+                                           FontSize="13" FontWeight="Bold"
+                                           Margin="20,0,0,0"/>
+                                <TextBlock Text="ho_va_ten"
+                                           FontSize="13"
+                                           Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Ngày sinh: "
+                                           FontSize="13" FontWeight="Bold"
+                                           Margin="10,0,0,0"/>
+                                <TextBlock Text="ngay_sinh"
+                                           FontSize="13" 
+                                           Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Giới tính: "
+                                           FontSize="13" FontWeight="Bold"
+                                           Margin="10,0,0,0"/>
+                                <TextBlock Text="gioi_tinh"
+                                           FontSize="13" 
+                                           Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="3" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Hệ đào tạo:"
+                                           FontSize="13" FontWeight="Bold"
+                                           Margin="20,0,0,0"/>
+                                <TextBlock Text="Đại học- Chính quy"
+                                           FontSize="13" Foreground="Red"
+                                           Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Chuyên ngành:  "
+                                           FontSize="13" FontWeight="Bold"
+                                           Margin="10,0,0,0"/>
+                                <TextBlock Text="chuyen_nganh" Foreground="Red"
+                                           FontSize="13" 
+                                           Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="4">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="ĐT cá nhân:" 
+                                               FontSize="13"
+                                               FontWeight="Bold"
+                                               Margin="20,0,0,0"/>
+                                    <TextBox x:Name="txtPhone"
+                                             Width="150" Height="20"
+                                             HorizontalAlignment="Left"
+                                             Margin="10,0,0,0"
+                                             Foreground="#595d60"
+                                             Text="0338910jqk"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Email:" FontSize="13" FontWeight="Bold"
+                                               Margin="10,0,0,0"/>
+                                    <TextBox x:Name="txtEmail"
+                                             Width="200" Height="20"
+                                             HorizontalAlignment="Left"
+                                             Margin="10,0,0,0"
+                                             Foreground="#595d60"
+                                             Text="vulonton@gmail.com"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </Border>                                             
+
+</UserControl>

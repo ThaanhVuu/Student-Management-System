@@ -1,0 +1,229 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\button_Image\icons8-binder-64.png" />
+    <None Remove="Images\button_Image\icons8-book-64.png" />
+    <None Remove="Images\button_Image\icons8-education-50.png" />
+    <None Remove="Images\button_Image\icons8-evaluate-50 %281%29.png" />
+    <None Remove="Images\button_Image\icons8-facebook-30.png" />
+    <None Remove="Images\button_Image\icons8-government-50.png" />
+    <None Remove="Images\button_Image\icons8-learning-50.png" />
+    <None Remove="Images\button_Image\icons8-list-50 %281%29.png" />
+    <None Remove="Images\button_Image\icons8-list-50.png" />
+    <None Remove="Images\button_Image\icons8-moleskine-24.png" />
+    <None Remove="Images\button_Image\icons8-moleskine-26.png" />
+    <None Remove="Images\button_Image\icons8-newspaper-48.png" />
+    <None Remove="Images\button_Image\icons8-pay-30.png" />
+    <None Remove="Images\button_Image\icons8-push-notifications-30.png" />
+    <None Remove="Images\button_Image\icons8-qr-code-58.png" />
+    <None Remove="Images\button_Image\icons8-schedule-50 %281%29.png" />
+    <None Remove="Images\button_Image\icons8-search-account-64.png" />
+    <None Remove="Images\button_Image\icons8-training-24.png" />
+    <None Remove="Images\icons8-book-50 %281%29.png" />
+    <None Remove="Images\icons8-card-wallet-32 %281%29.png" />
+    <None Remove="Images\icons8-forgot-password-26.png" />
+    <None Remove="Images\icons8-headset-32 %281%29.png" />
+    <None Remove="Images\icons8-home-50.png" />
+    <None Remove="Images\icons8-local-30.png" />
+    <None Remove="Images\icons8-login-50 %281%29.png" />
+    <None Remove="Images\icons8-mail-50.png" />
+    <None Remove="Images\icons8-medical-32 %281%29.png" />
+    <None Remove="Images\icons8-name-32.png" />
+    <None Remove="Images\icons8-pass-fail-32 %281%29.png" />
+    <None Remove="Images\icons8-phone-50.png" />
+    <None Remove="Images\icons8-search-50.png" />
+    <None Remove="Images\icons8-task-50 %281%29.png" />
+    <None Remove="Images\icons8-test-account-32.png" />
+    <None Remove="Images\icons8-user-48.png" />
+    <None Remove="Images\icons8-website-50.png" />
+    <None Remove="Images\icon_admin\icons8-book-48.png" />
+    <None Remove="Images\icon_admin\icons8-book-50.png" />
+    <None Remove="Images\icon_admin\icons8-elective-64.png" />
+    <None Remove="Images\icon_admin\icons8-student-24.png" />
+    <None Remove="Images\icon_admin\icons8-student-registration-30.png" />
+    <None Remove="Images\logo-truong-dai-hoc-kien-truc-ha-noi-inkythuatso-01-23-10-48-40.jpg" />
+    <None Remove="Images\Logo_HAU.png" />
+    <None Remove="Images\nen.jpg" />
+    <None Remove="Images\Screenshot 2024-09-23 213946.jpg" />
+    <None Remove="Images\Screenshot 2025-03-04 024547.png" />
+    <None Remove="userControl\image_userControl\27. vuông.jpg" />
+    <None Remove="userControl\image_userControl\icons8-bell-30.png" />
+    <None Remove="userControl\image_userControl\icons8-camera-50.png" />
+    <None Remove="userControl\image_userControl\icons8-new-50 %281%29.png" />
+    <None Remove="userControl\image_userControl\Screenshot 2025-03-04 222252.png" />
+    <None Remove="video\Đăng kí học phần lớp tín chỉ Đại học kiến trúc.mp4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\27. vuông.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-local-30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-mail-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-phone-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-website-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icon_admin\icons8-book-48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icon_admin\icons8-book-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icon_admin\icons8-elective-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icon_admin\icons8-student-24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icon_admin\icons8-student-registration-30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Screenshot 2025-03-04 024547.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="userControl\image_userControl\icons8-bell-30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\button_Image\icons8-binder-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-book-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-education-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-evaluate-50 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-facebook-30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-government-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-learning-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-list-50 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-list-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-moleskine-24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-moleskine-26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-newspaper-48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-pay-30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-push-notifications-30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-qr-code-58.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-schedule-50 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-search-account-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\button_Image\icons8-training-24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-book-50 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-card-wallet-32 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-forgot-password-26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-headset-32 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-home-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-login-50 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-medical-32 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-name-32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-pass-fail-32 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-search-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-task-50 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-test-account-32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons8-user-48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\logo-truong-dai-hoc-kien-truc-ha-noi-inkythuatso-01-23-10-48-40.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Logo_HAU.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\nen.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Screenshot 2024-09-23 213946.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="userControl\image_userControl\icons8-camera-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="userControl\image_userControl\icons8-new-50 (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="userControl\image_userControl\Screenshot 2025-03-04 222252.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="video\Đăng kí học phần lớp tín chỉ Đại học kiến trúc.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="MySql.Data" Version="9.2.0" />
+  </ItemGroup>
+
+</Project>

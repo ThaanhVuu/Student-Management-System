@@ -1,0 +1,10 @@
+﻿<Application x:Class="qlsv_dang_nhap.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:qlsv_dang_nhap"
+             StartupUri="View/Dang_nhap_view.xaml">
+
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
