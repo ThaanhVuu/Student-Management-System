@@ -15,7 +15,7 @@ public class AdmissionRepository
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                const string query = "Select a.admission_id, p.program_name, a.full_name, a.date_of_birth, a.gender, a.admission_status from admission a inner join program p on a.program_id = p.program_id";
+                const string query = "Select a.admission_id, p.program_id, p.program_name, a.full_name, a.date_of_birth, a.gender, a.admission_status from admission a inner join program p on a.program_id = p.program_id";
                 using (var adapter = new MySqlDataAdapter(query, conn))
                 {
                     adapter.Fill(DataTable);
@@ -51,7 +51,11 @@ public class AdmissionRepository
         command.Parameters.AddWithValue("@gender", admission.Gender);
         command.Parameters.AddWithValue("@admission_status", admission.StatusAdmission);
         command.Parameters.AddWithValue("@admission_id", admission.AdmissionId);
-        command.ExecuteNonQuery();
+        int row = command.ExecuteNonQuery();
+        if(row == 0)
+        {
+            throw new Exception("Không tìm thấy hồ sơ cần sửa");
+        }
     }
 
     //xoa
@@ -75,6 +79,7 @@ public class AdmissionRepository
             string query = @"
             SELECT 
                 a.admission_id, 
+                p.program_id,
                 p.program_name, 
                 a.full_name, 
                 a.date_of_birth, 

@@ -294,7 +294,7 @@
                                 <TextBlock Text="Trạng Thái Hồ Sơ:" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
                                 <ComboBox x:Name="cbTrangThai" Width="225">
                                     <ComboBoxItem Content="Pending" FontSize="14"/>
-                                    <ComboBoxItem Content="Approve" FontSize="14"/>
+                                    <ComboBoxItem Content="Approved" FontSize="14"/>
                                     <ComboBoxItem Content="Rejected" FontSize="14"/>
                                 </ComboBox>
 
@@ -304,6 +304,7 @@
                                             FontSize="14" FontWeight="Bold"
                                             Click="btnThemHoSo_Click"/>
                                     <Button x:Name="btnSuaHoSo" Content="Sửa Hồ Sơ"
+                                            Click="btnSuaHoSo_Click"
                                             Width="100" Margin="5,0,0,0"
                                             FontSize="14" FontWeight="Bold"/>
                                 </StackPanel>
@@ -378,15 +379,16 @@
                             </Border>
 
                             <Border Grid.Row="1">
-                                <ListView x:Name="lvAdmission" Margin="10">
+                                <ListView x:Name="lvAdmission" Margin="10" SelectionChanged="lvAdmission_SelectionChanged" >
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Mã Hồ Sơ" Width="100" DisplayMemberBinding="{Binding admission_id}"/>
-                                            <GridViewColumn Header="Tên CTDT" Width="200" DisplayMemberBinding="{Binding program_name}"/>
-                                            <GridViewColumn Header="Họ Tên" Width="250" DisplayMemberBinding="{Binding full_name}"/>
-                                            <GridViewColumn Header="Ngày Sinh" Width="100" DisplayMemberBinding="{Binding date_of_birth, StringFormat=dd/MM/yyyy}"/>
-                                            <GridViewColumn Header="Giới Tính" Width="80" DisplayMemberBinding="{Binding gender}"/>
-                                            <GridViewColumn Header="Trạng Thái" Width="100" DisplayMemberBinding="{Binding admission_status}"/>
+                                            <GridViewColumn x:Name="idd" Header="Mã Hồ Sơ" Width="100" DisplayMemberBinding="{Binding admission_id}"/>
+                                            <GridViewColumn x:Name="ctdtid" Header="Mã CTDT" Width="200" DisplayMemberBinding="{Binding program_id}"/>
+                                            <GridViewColumn x:Name="ctdt" Header="Tên CTDT" Width="200" DisplayMemberBinding="{Binding program_name}"/>
+                                            <GridViewColumn x:Name="name" Header="Họ Tên" Width="250" DisplayMemberBinding="{Binding full_name}"/>
+                                            <GridViewColumn x:Name="day" Header="Ngày Sinh" Width="100" DisplayMemberBinding="{Binding date_of_birth, StringFormat=dd/MM/yyyy}"/>
+                                            <GridViewColumn x:Name="gen" Header="Giới Tính" Width="80" DisplayMemberBinding="{Binding gender}"/>
+                                            <GridViewColumn x:Name="sta" Header="Trạng Thái" Width="100" DisplayMemberBinding="{Binding admission_status}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

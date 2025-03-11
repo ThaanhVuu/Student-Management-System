@@ -62,7 +62,7 @@ namespace qlsv_dang_nhap.View
             try
             {
                 _user = _userService.Authenticate(userInput, passInput);
-                MessageBox.Show($"Đăng nhập thành công, chào mừng {_user.Role}");
+                MessageBox.Show($"Đăng nhập thành công, chào mừng {_user.Username}");
                 if (_user.Role == 1)
                 {
                     viewAdmin admin = new viewAdmin();
