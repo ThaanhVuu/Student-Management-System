@@ -4,7 +4,6 @@ class AdmissionService
     private readonly AdmissionRepository _admissionRepository;
     public AdmissionService(AdmissionRepository admissionRepository)
     {
-
         _admissionRepository = admissionRepository;
     }
 

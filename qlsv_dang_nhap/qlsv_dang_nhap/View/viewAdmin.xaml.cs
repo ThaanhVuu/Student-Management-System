@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Configuration;
 
 namespace qlsv_dang_nhap.View
 {
@@ -29,31 +18,41 @@ namespace qlsv_dang_nhap.View
         public viewAdmin()
         {
             InitializeComponent();
-            try
-            {
-                _admissionService = new AdmissionService(new AdmissionRepository(connectionString));
-                _programService = new ProgramService(new ProgramRepository(connectionString));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Khởi tạo dịch vụ thất bại: {ex.Message}");
-                // Xử lý đóng ứng dụng hoặc khởi tạo lại
-            }
+            var admissionRepository = new AdmissionRepository(connectionString);
+            var programRepository = new ProgramRepository(connectionString);
+            _admissionService = new AdmissionService(admissionRepository);
+            _programService = new ProgramService(programRepository);
         }
 
         private void tabSelection(object sender, SelectionChangedEventArgs e)
         {
-            // Lấy tab hiện tại
-            TabControl tabControl = sender as TabControl;
-            TabItem selectedTab = tabControl.SelectedItem as TabItem;
-            // Nếu là tab Quản lý tuyển sinh
-            if (selectedTab == AdmissionTabb)
+            try
             {
-                LoadData();
+                // Kiểm tra sender có phải là TabControl không
+                if (!(sender is TabControl tabControl))
+                {
+                    return; // Không xử lý nếu sender không phải TabControl
+                }
+
+                // Kiểm tra SelectedItem có phải là TabItem không
+                if (!(tabControl.SelectedItem is TabItem selectedTab))
+                {
+                    return; // Không xử lý nếu không có tab được chọn
+                }
+
+                // So sánh tên tab để tránh sai sót
+                if (selectedTab.Name == nameof(AdmissionTabb)) // Kiểm tra tên tab "AdmissionTabb"
+                {
+                    LoadData();
+                }
+                else if (selectedTab.Name == nameof(ProgramTabb)) // Kiểm tra tên tab "ProgramTabb"
+                {
+                    LoadDataProgram();
+                }
             }
-            else if (selectedTab == ProgramTabb)
+            catch (Exception ex)
             {
-                LoadDataProgram();
+                MessageBox.Show($"Lỗi khi chuyển tab: {ex.Message}");
             }
         }
 
@@ -62,46 +61,31 @@ namespace qlsv_dang_nhap.View
         {
             try
             {
-                // Kiểm tra service đã được khởi tạo
-                if (_admissionService == null)
-                {
-                    MessageBox.Show("Dịch vụ Admission chưa được khởi tạo!");
-                    return;
-                }
+                // Đảm bảo service đã được khởi tạo từ constructor
+                DataTable newDt = string.IsNullOrEmpty(keyword)
+                    ? _admissionService.GetAllAdmissions()
+                    : _admissionService.SearchAdmission(keyword);
 
-                DataTable newDt;
-
-                // Lấy dữ liệu từ service
-                if (string.IsNullOrEmpty(keyword))
-                {
-                    newDt = _admissionService.GetAllAdmissions();
-                }
-                else
-                {
-                    newDt = _admissionService.SearchAdmission(keyword);
-                }
-
-                // Kiểm tra DataTable null hoặc rỗng
+                // Kiểm tra dữ liệu trả về
                 if (newDt == null)
                 {
-                    MessageBox.Show("Lỗi khi tải dữ liệu: Danh sách trả về null!");
+                    MessageBox.Show("Lỗi: Danh sách trả về null!");
                     lvAdmission.ItemsSource = null;
                     return;
                 }
 
                 if (newDt.Rows.Count == 0)
                 {
-                    MessageBox.Show("Không tìm thấy kết quả phù hợp.");
+                    MessageBox.Show("Không có dữ liệu!");
                     lvAdmission.ItemsSource = null;
                     return;
                 }
 
-                // Gán dữ liệu vào ListView
                 lvAdmission.ItemsSource = newDt.DefaultView;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi nghiêm trọng khi tải danh sách: {ex.Message}");
+                MessageBox.Show($"Lỗi khi tải danh sách: {ex.Message}");
             }
         }
 
@@ -220,7 +204,7 @@ namespace qlsv_dang_nhap.View
 
         #region Tab Quản lý tuyển sinh
 
-        
+
         private void ResetForm()
         {
             txtHoTen.Text = string.Empty;
@@ -228,7 +212,7 @@ namespace qlsv_dang_nhap.View
             dpNgaySinh.SelectedDate = null;
             cbGioiTinh.SelectedIndex = -1;
         }
-       
+
         // Xử lý các nút trong tab Quản lý tuyển sinh
         private void btnThemHoSo_Click(object sender, RoutedEventArgs e)
         {
@@ -258,7 +242,7 @@ namespace qlsv_dang_nhap.View
                 MessageBox.Show($"Lỗi khi thêm hồ sơ: {ex.Message}");
             }
         }
-        
+
         // Đẩy dữ liệu từ DataGrid lên các box
         private void lvAdmission_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -314,7 +298,7 @@ namespace qlsv_dang_nhap.View
                 string ngaysinh = dpNgaySinh.SelectedDate?.ToString("yyyy-MM-dd");
                 long abc = long.Parse(txtTenCTDT.Text);
                 long id2 = Convert.ToInt64(selectedRow["admission_id"]);
-               
+
 
                 // Tạo đối tượng Admission
                 var admission = new Admission
@@ -341,8 +325,8 @@ namespace qlsv_dang_nhap.View
 
         private void btnXoaHoSo_Click(object sender, RoutedEventArgs e)
         {
-            var selectedRow = lvAdmission.SelectedItem as DataRowView;          
-            if(selectedRow == null)
+            var selectedRow = lvAdmission.SelectedItem as DataRowView;
+            if (selectedRow == null)
             {
                 MessageBox.Show("Vui lòng chọn hồ sơ!");
                 return;
@@ -421,7 +405,7 @@ namespace qlsv_dang_nhap.View
                 Visibility.Visible : Visibility.Collapsed;
 
             // TODO: Thêm mã tìm kiếm của bạn ở đây
-         
+
         }
 
         private void k_search(object sender, KeyEventArgs e)
