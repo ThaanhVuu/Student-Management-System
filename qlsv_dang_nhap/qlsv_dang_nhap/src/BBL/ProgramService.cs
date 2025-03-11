@@ -10,32 +10,40 @@ public class ProgramService
 
     public DataTable GetAllPrograms()
     {
-        return _programReposity.GetAllPrograms();
+        try
+        {
+            return _programReposity.GetAllPrograms();
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 
-    public void RegisterProgram(int programId,string programName, Program program)
+    public void RegisterProgram(Program program)
     {
-        if(string.IsNullOrEmpty(program.ProgramName) && string.IsNullOrEmpty(program.ProgramName))
+        if(program.ProgramID == null || string.IsNullOrEmpty(program.ProgramName))
         {
-            MessageBox.Show("Vui lòng nhập thông tin đầy đủ");
-        }else if(_programReposity.GetProgramById(program.ProgramName, program.ProgramID) != null)
-        {
-            MessageBox.Show("Chương trình đào tạo đã tồn tại");
+            throw new Exception("Vui lòng nhập thông tin đầy đủ");
         }
-        _programReposity.AddProgram(new Program
-            {
-                ProgramID = programId,
-                ProgramName = programName
-            });
+        _programReposity.AddProgram(program);
     }
 
     public void UpdateProgram(int programId, string newProgramName)
     {
-        if (string.IsNullOrEmpty(newProgramName))
+        if (string.IsNullOrEmpty(newProgramName) && string.IsNullOrEmpty(newProgramName))
         {
-            MessageBox.Show("Vui lòng nhập thông tin đầy đủ");
+            throw new Exception("Vui lòng nhập thông tin đầy đủ");
         }
-        _programReposity.UpdateProgramName(programId, newProgramName);
+        try
+        {
+            _programReposity.UpdateProgramName(programId, newProgramName);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 
     public void DeleteProgram(int programId)

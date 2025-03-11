@@ -23,15 +23,38 @@ namespace qlsv_dang_nhap.View
     public partial class viewAdmin : Window
     {
         string connectionString = ConfigurationManager.ConnectionStrings["SMS"].ConnectionString;
-        private AdmissionSerVice _admissionService;
-        string keyword;
+        private AdmissionService _admissionService;
+        private ProgramService _programService;
+        string keyword = "";
         public viewAdmin()
         {
-            AdmissionRepository _admissionRepository = new AdmissionRepository(connectionString);
-            _admissionService = new AdmissionSerVice(_admissionRepository);
             InitializeComponent();
-            LoadData();
-            LoadDataSinhVien();
+            try
+            {
+                _admissionService = new AdmissionService(new AdmissionRepository(connectionString));
+                _programService = new ProgramService(new ProgramRepository(connectionString));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Khởi tạo dịch vụ thất bại: {ex.Message}");
+                // Xử lý đóng ứng dụng hoặc khởi tạo lại
+            }
+        }
+
+        private void tabSelection(object sender, SelectionChangedEventArgs e)
+        {
+            // Lấy tab hiện tại
+            TabControl tabControl = sender as TabControl;
+            TabItem selectedTab = tabControl.SelectedItem as TabItem;
+            // Nếu là tab Quản lý tuyển sinh
+            if (selectedTab == AdmissionTabb)
+            {
+                LoadData();
+            }
+            else if (selectedTab == ProgramTabb)
+            {
+                LoadDataProgram();
+            }
         }
 
         // Phương thức để tải dữ liệu ban đầu
@@ -39,7 +62,16 @@ namespace qlsv_dang_nhap.View
         {
             try
             {
+                // Kiểm tra service đã được khởi tạo
+                if (_admissionService == null)
+                {
+                    MessageBox.Show("Dịch vụ Admission chưa được khởi tạo!");
+                    return;
+                }
+
                 DataTable newDt;
+
+                // Lấy dữ liệu từ service
                 if (string.IsNullOrEmpty(keyword))
                 {
                     newDt = _admissionService.GetAllAdmissions();
@@ -49,37 +81,38 @@ namespace qlsv_dang_nhap.View
                     newDt = _admissionService.SearchAdmission(keyword);
                 }
 
-                // Gán lại ItemsSource để kích hoạt cập nhật UI
-                lvAdmission.ItemsSource = newDt?.DefaultView;
-
-                if (newDt?.Rows.Count == 0)
+                // Kiểm tra DataTable null hoặc rỗng
+                if (newDt == null)
                 {
-                    MessageBox.Show("Không tìm thấy kết quả");
+                    MessageBox.Show("Lỗi khi tải dữ liệu: Danh sách trả về null!");
+                    lvAdmission.ItemsSource = null;
+                    return;
                 }
+
+                if (newDt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy kết quả phù hợp.");
+                    lvAdmission.ItemsSource = null;
+                    return;
+                }
+
+                // Gán dữ liệu vào ListView
+                lvAdmission.ItemsSource = newDt.DefaultView;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách: {ex.Message}");
+                MessageBox.Show($"Lỗi nghiêm trọng khi tải danh sách: {ex.Message}");
             }
         }
 
-        private void LoadDataSinhVien()
+        private void LoadDataProgram()
         {
             try
             {
                 DataTable newDt;
-                if (string.IsNullOrEmpty(keyword))
-                {
-                    newDt = _admissionService.GetAllAdmissions();
-                }
-                else
-                {
-                    newDt = _admissionService.SearchAdmission(keyword);
-                }
-
+                newDt = _programService.GetAllPrograms();
                 // Gán lại ItemsSource để kích hoạt cập nhật UI
-                lvAdmission.ItemsSource = newDt?.DefaultView;
-
+                lvCTDT.ItemsSource = newDt.DefaultView;
                 if (newDt?.Rows.Count == 0)
                 {
                     MessageBox.Show("Không tìm thấy kết quả");
@@ -87,7 +120,7 @@ namespace qlsv_dang_nhap.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách: {ex.Message}");
+                MessageBox.Show($"Lỗi khi tải danh sách CTDT: {ex.Message}");
             }
         }
 
@@ -186,6 +219,8 @@ namespace qlsv_dang_nhap.View
         #endregion
 
         #region Tab Quản lý tuyển sinh
+
+        
         private void ResetForm()
         {
             txtHoTen.Text = string.Empty;
@@ -429,10 +464,29 @@ namespace qlsv_dang_nhap.View
         #endregion
 
         #region Tab Chương trình đào tạo
+        private void ResetFormCTDT()
+        {
+            mct.Text = string.Empty;
+            tct.Text = string.Empty;
+        }
         private void btnThemCTDT_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Thêm mới chương trình đào tạo
-            MessageBox.Show("Chức năng thêm CTĐT được chọn.");
+            try
+            {
+                _programService.RegisterProgram(new Program
+                {
+                    ProgramID = int.Parse(mct.Text),
+                    ProgramName = tct.Text
+                });
+                MessageBox.Show("Đã thêm chương trình đào tạo thành công!");
+                LoadDataProgram();
+                ResetFormCTDT();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thêm chương trình đào tạo: {ex.Message}");
+            }
         }
 
         private void btnSuaCTDT_Click(object sender, RoutedEventArgs e)

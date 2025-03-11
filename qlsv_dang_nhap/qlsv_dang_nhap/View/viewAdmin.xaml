@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Title="viewAdmin" Height="720" Width="1080">
     <Grid>
-        <TabControl Name="TabControlMain" FontSize="16" Background="White">
+        <TabControl Name="TabControlMain" FontSize="16" Background="White" SelectionChanged="tabSelection">
             <!-- Tab Quản lý sinh viên -->
             <TabItem >
                 <TabItem.Header>
@@ -258,7 +258,8 @@
             </TabItem>
             <!-- Tab Quản lý tuyển sinh -->
 
-            <TabItem>
+            <TabItem x:Name="AdmissionTabb">
+
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/icon_admin/icons8-student-registration-30.png" Width="16" Height="16"/>
@@ -377,7 +378,7 @@
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn x:Name="idd" Header="Mã Hồ Sơ" Width="100" DisplayMemberBinding="{Binding admission_id}"/>
-                                            <GridViewColumn x:Name="ctdtid" Header="Mã CTDT" Width="200" DisplayMemberBinding="{Binding program_id}"/>
+                                            <GridViewColumn x:Name="ctdtid" Header="Mã CTDT" Width="100" DisplayMemberBinding="{Binding program_id}"/>
                                             <GridViewColumn x:Name="ctdt" Header="Tên CTDT" Width="200" DisplayMemberBinding="{Binding program_name}"/>
                                             <GridViewColumn x:Name="name" Header="Họ Tên" Width="250" DisplayMemberBinding="{Binding full_name}"/>
                                             <GridViewColumn x:Name="day" Header="Ngày Sinh" Width="100" DisplayMemberBinding="{Binding date_of_birth, StringFormat=dd/MM/yyyy}"/>
@@ -393,7 +394,7 @@
             </TabItem>
 
             <!-- Tab Chương trình đào tạo -->
-            <TabItem>
+            <TabItem x:Name="ProgramTabb">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/icon_admin/icons8-book-48.png"
@@ -430,7 +431,7 @@
                                                    Margin="10,10,0,0"/>
                                     </Border>
                                     <Border Grid.Row="1">
-                                        <TextBox Width="230" FontSize="14"
+                                        <TextBox x:Name="mct" Width="230" FontSize="14"
                                                  HorizontalAlignment="Left" VerticalAlignment="Center"
                                                  Margin="10,0,0,10"/>
                                     </Border>
@@ -450,7 +451,7 @@
                                                    Margin="10,0,0,0"/>
                                     </Border>
                                     <Border Grid.Row="1">
-                                        <TextBox Width="230" FontSize="14"
+                                        <TextBox x:Name="tct" Width="230" FontSize="14"
                                                  HorizontalAlignment="Left" VerticalAlignment="Center"
                                                  Margin="10,0,0,10"/>
                                     </Border>
@@ -475,17 +476,18 @@
 
                     <!-- Danh sách chương trình đào tạo -->
                     <Border Grid.Column="1">
-                        <ListView>
+                        <ListView x:Name="lvCTDT">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Mã CTĐT" Width="auto" DisplayMemberBinding="{Binding MaChuongTrinh}"/>
-                                    <GridViewColumn Header="Tên CTĐT" Width="auto" DisplayMemberBinding="{Binding TenCT}"/>
+                                    <GridViewColumn Header="Mã CTĐT" Width="auto" DisplayMemberBinding="{Binding program_id}"/>
+                                    <GridViewColumn Header="Tên CTĐT" Width="auto" DisplayMemberBinding="{Binding program_name}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </Border>
                 </Grid>
             </TabItem>
+
 
             <!-- Tab Chi tiết CTDT -->
             <TabItem>
