@@ -273,8 +273,6 @@ namespace qlsv_dang_nhap.View
                         break;
                     }
                 }
-
-                // ComboBox Trạng thái
             }
             catch (Exception ex)
             {
@@ -453,6 +451,26 @@ namespace qlsv_dang_nhap.View
             mct.Text = string.Empty;
             tct.Text = string.Empty;
         }
+
+        private void lvCTDTSelected(object sender, SelectionChangedEventArgs e)
+        {
+            // Lấy hàng được chọn
+            var selectedRow = lvCTDT.SelectedItem as DataRowView;
+            if (selectedRow == null) return;
+
+            // Gán giá trị vào các controls
+            try
+            {
+                // TextBox Tên CTDT và Họ tên
+                mct.Text = selectedRow["program_id"].ToString();
+                tct.Text = selectedRow["program_name"].ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}");
+            }
+        }
+
         private void btnThemCTDT_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Thêm mới chương trình đào tạo
@@ -475,8 +493,35 @@ namespace qlsv_dang_nhap.View
 
         private void btnSuaCTDT_Click(object sender, RoutedEventArgs e)
         {
+            
             // TODO: Sửa thông tin chương trình đào tạo
-            MessageBox.Show("Chức năng sửa CTĐT được chọn.");
+            //var selectedRow = lvCTDT.SelectedItem as DataRowView;
+            //if (selectedRow == null)
+            //{
+            //    MessageBox.Show("Vui lòng chọn một hàng!");
+            //    return;
+            //}
+            //long id2 = Convert.ToInt64(selectedRow["program_id"]);
+            if(mct == null)
+            {
+                MessageBox.Show("Vui lòng chọn chương trình đào tạo");
+                return;
+            }
+            try
+            {
+               
+                _programService.UpdateProgram(new Program
+                {
+                    ProgramID = int.Parse(mct.Text),
+                    ProgramName = tct.Text
+                });
+                MessageBox.Show("Đã sửa chương trình đào tạo thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi sửa chương trình đào tạo:  {ex.Message}");
+            }
+
         }
 
         private void btnXoaCTDT_Click(object sender, RoutedEventArgs e)

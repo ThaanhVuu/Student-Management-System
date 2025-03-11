@@ -45,14 +45,14 @@ public class ProgramRepository
         cmd.ExecuteNonQuery();
     }
 
-    public void UpdateProgramName(long programId, string newProgramName)
+    public void UpdateProgramName(Program program)
     {
         using var connection = new MySqlConnection(_connectionString);
         connection.Open();
-        const string query = "UPDATE program SET program_id = @program_id, program_name = @program_name WHERE program_id = @id";
+        const string query = "UPDATE program SET program_name = @program_name WHERE program_id = @id";
         using var cmd = new MySqlCommand(query, connection);
-        cmd.Parameters.AddWithValue("@program_name", newProgramName);
-        cmd.Parameters.AddWithValue("@id", programId);
+        cmd.Parameters.AddWithValue("@program_name", program.ProgramName);
+        cmd.Parameters.AddWithValue("@id", program.ProgramID);
         cmd.ExecuteNonQuery();
     }
 
