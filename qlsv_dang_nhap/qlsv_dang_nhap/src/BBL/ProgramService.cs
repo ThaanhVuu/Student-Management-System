@@ -50,13 +50,15 @@ public class ProgramService
         }
     }
 
-    public void DeleteProgram(int programId)
+    public void DeleteProgram(Program program)
     {
-        var program = _programReposity.GetProgramById(null, programId);
-        if (program.ProgramID == null)
+        try
         {
-            MessageBox.Show("Chương trình đào tạo không tồn tại");
+            _programReposity.DeleteProgram(program);
         }
-        _programReposity.DeleteProgram(programId);
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 }

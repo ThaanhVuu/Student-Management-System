@@ -35,13 +35,13 @@ public class ProgramRepository
         cmd.ExecuteNonQuery();
     }
 
-    public void DeleteProgram(long programId)
+    public void DeleteProgram(Program program)
     {
         using var connection = new MySqlConnection(_connectionString);
         connection.Open();
         const string query = "DELETE FROM program WHERE program_id = @id";
         using var cmd = new MySqlCommand(query, connection);
-        cmd.Parameters.AddWithValue("@id", programId);
+        cmd.Parameters.AddWithValue("@id", program.ProgramID);
         cmd.ExecuteNonQuery();
     }
 
