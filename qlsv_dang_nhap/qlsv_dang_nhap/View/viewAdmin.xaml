@@ -476,11 +476,11 @@
 
                     <!-- Danh sách chương trình đào tạo -->
                     <Border Grid.Column="1">
-                        <ListView x:Name="lvCTDT">
+                        <ListView x:Name="lvCTDT" SelectionChanged="lvCTDTSelected">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Mã CTĐT" Width="auto" DisplayMemberBinding="{Binding program_id}"/>
-                                    <GridViewColumn Header="Tên CTĐT" Width="auto" DisplayMemberBinding="{Binding program_name}"/>
+                                    <GridViewColumn x:Name="a" Header="Mã CTĐT" Width="auto" DisplayMemberBinding="{Binding program_id}"/>
+                                    <GridViewColumn x:Name="b" Header="Tên CTĐT" Width="auto" DisplayMemberBinding="{Binding program_name}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>

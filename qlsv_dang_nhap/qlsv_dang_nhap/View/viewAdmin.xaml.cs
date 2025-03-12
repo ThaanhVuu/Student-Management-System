@@ -14,7 +14,7 @@ namespace qlsv_dang_nhap.View
         string connectionString = ConfigurationManager.ConnectionStrings["SMS"].ConnectionString;
         private AdmissionService _admissionService;
         private ProgramService _programService;
-        string keyword = "";
+        string keyword;
         public viewAdmin()
         {
             InitializeComponent();
@@ -23,7 +23,7 @@ namespace qlsv_dang_nhap.View
             _admissionService = new AdmissionService(admissionRepository);
             _programService = new ProgramService(programRepository);
         }
-
+        //load dung ds
         private void tabSelection(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -273,12 +273,10 @@ namespace qlsv_dang_nhap.View
                         break;
                     }
                 }
-
-                // ComboBox Trạng thái
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}");
+                MessageBox.Show($"Lỗi khi tải dữ liệu Hồ sơ tuyển sinh: {ex.Message}");
             }
         }
 
@@ -453,9 +451,40 @@ namespace qlsv_dang_nhap.View
             mct.Text = string.Empty;
             tct.Text = string.Empty;
         }
+
+        private string _originalProgramId;
+        private void lvCTDTSelected(object sender, SelectionChangedEventArgs e)
+        {
+
+            var selectedRow = lvCTDT.SelectedItem as DataRowView;
+            if (selectedRow == null) return;
+            // Gán giá trị vào các controls
+            try
+            {
+                // TextBox Mã CTDT và Tên CTDT
+                _originalProgramId = selectedRow["program_id"].ToString();
+                mct.Text = selectedRow["program_id"].ToString();
+                tct.Text = selectedRow["program_name"].ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải dữ liệu CTDT: {ex.Message}");
+            }
+        }
+
         private void btnThemCTDT_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Thêm mới chương trình đào tạo
+            if (string.IsNullOrEmpty(tct.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên chương trình đào tạo!");
+                return;
+            }
+            else if (string.IsNullOrEmpty(mct.Text))
+            {
+                MessageBox.Show("Vui lòng nhập mã chương trình đào tạo!");
+                return;
+            }
             try
             {
                 _programService.RegisterProgram(new Program
@@ -475,22 +504,63 @@ namespace qlsv_dang_nhap.View
 
         private void btnSuaCTDT_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Sửa thông tin chương trình đào tạo
-            MessageBox.Show("Chức năng sửa CTĐT được chọn.");
-        }
-
-        private void btnXoaCTDT_Click(object sender, RoutedEventArgs e)
-        {
-            // TODO: Xóa chương trình đào tạo
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa chương trình đào tạo này?", "Xác nhận",
-                                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (string.IsNullOrEmpty(mct.Text))
             {
-                // TODO: Thực hiện xóa dữ liệu
-                MessageBox.Show("Đã xóa CTĐT thành công!");
+                MessageBox.Show("Vui lòng chọn chương trình đào tạo cần sửa!");
+                return;
+            }
+            try
+            {
+                if(tct.Text == _originalProgramId)
+                {
+                    _programService.UpdateProgram(new Program
+                    {
+                        ProgramID = int.Parse(mct.Text),
+                        ProgramName = tct.Text
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Không thể sửa mã chương trình đào tạo!");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi sửa chương trình đào tạo: {ex.Message}");
             }
         }
+        private void btnXoaCTDT_Click(object sender, RoutedEventArgs e)
+        {
+            // check xem chon row ch
+            if (string.IsNullOrEmpty(mct.Text))
+            {
+                MessageBox.Show("Vui lòng chọn chương trình đào tạo cần xóa!");
+                return;
+            }
 
+            // Xác nhận xóa
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa chương trình đào tạo này?", "Xác nhận",
+                                                      MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                // Thực hiện xóa dữ liệu
+                try
+                {
+                    Program program = new Program
+                    {
+                        ProgramID = long.Parse(mct.Text),
+                        ProgramName = tct.Text
+                    };
+                    _programService.DeleteProgram(program);
+                    LoadDataProgram(); ResetFormCTDT();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa chương trình đào tạo: {ex.Message}");
+                }
+            }
+        }
         private void btnChiTiet_Click(object sender, RoutedEventArgs e)
         {
             // Sử dụng trực tiếp TabControlMain đã đặt tên thay vì FindName

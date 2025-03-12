@@ -23,22 +23,26 @@ public class ProgramService
 
     public void RegisterProgram(Program program)
     {
-        if(program.ProgramID == null || string.IsNullOrEmpty(program.ProgramName))
+        if (program.ProgramID == null || string.IsNullOrEmpty(program.ProgramName))
         {
             throw new Exception("Vui lòng nhập thông tin đầy đủ");
         }
         _programReposity.AddProgram(program);
     }
 
-    public void UpdateProgram(int programId, string newProgramName)
+    public void UpdateProgram(Program program)
     {
-        if (string.IsNullOrEmpty(newProgramName) && string.IsNullOrEmpty(newProgramName))
+        if (string.IsNullOrEmpty(program.ProgramName))
         {
-            throw new Exception("Vui lòng nhập thông tin đầy đủ");
+            throw new Exception("Vui lòng nhập tên chương trình đào tạo");
+        }
+        if (program.ProgramID == null)
+        {
+            throw new Exception("Vui lòng chọn chương trình đào tạo");
         }
         try
         {
-            _programReposity.UpdateProgramName(programId, newProgramName);
+            _programReposity.UpdateProgramName(program);
         }
         catch (Exception e)
         {
@@ -46,13 +50,15 @@ public class ProgramService
         }
     }
 
-    public void DeleteProgram(int programId)
+    public void DeleteProgram(Program program)
     {
-        var program = _programReposity.GetProgramById(null,programId);
-        if (program.ProgramID == null)
+        try
         {
-            MessageBox.Show("Chương trình đào tạo không tồn tại");
+            _programReposity.DeleteProgram(program);
         }
-        _programReposity.DeleteProgram(programId);
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 }
