@@ -452,16 +452,17 @@ namespace qlsv_dang_nhap.View
             tct.Text = string.Empty;
         }
 
+        private string _originalProgramId;
         private void lvCTDTSelected(object sender, SelectionChangedEventArgs e)
         {
 
             var selectedRow = lvCTDT.SelectedItem as DataRowView;
             if (selectedRow == null) return;
             // Gán giá trị vào các controls
-            mct.IsReadOnly = true;
             try
             {
                 // TextBox Mã CTDT và Tên CTDT
+                _originalProgramId = selectedRow["program_id"].ToString();
                 mct.Text = selectedRow["program_id"].ToString();
                 tct.Text = selectedRow["program_name"].ToString();
             }
@@ -510,13 +511,19 @@ namespace qlsv_dang_nhap.View
             }
             try
             {
-                _programService.UpdateProgram(new Program
+                if(tct.Text == _originalProgramId)
                 {
-                    ProgramID = int.Parse(mct.Text),
-                    ProgramName = tct.Text
-                });
-                MessageBox.Show("Sửa chương trình đào tạo thành công!");
-                LoadDataProgram(); ResetFormCTDT();
+                    _programService.UpdateProgram(new Program
+                    {
+                        ProgramID = int.Parse(mct.Text),
+                        ProgramName = tct.Text
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Không thể sửa mã chương trình đào tạo!");
+                    return;
+                }
             }
             catch (Exception ex)
             {
