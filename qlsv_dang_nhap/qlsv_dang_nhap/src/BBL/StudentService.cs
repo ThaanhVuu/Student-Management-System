@@ -31,7 +31,7 @@ class StudentService
     }
     public void DeleteStudent(int id)
     {
-
+        int abc;
     }
 
     public long getLastestAdmissionId()
