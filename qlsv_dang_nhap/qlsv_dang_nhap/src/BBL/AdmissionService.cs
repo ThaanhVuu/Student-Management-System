@@ -30,10 +30,6 @@ class AdmissionService
         {
             throw new Exception("Ngày sinh không được để trống");
         }
-        if(admission.StatusAdmission == null)
-        {
-            throw new Exception("Trạng thái không được để trống");
-        }
         if(admission.Gender == null)
         {
             throw new Exception("Giới tính không được để trống");
@@ -42,7 +38,7 @@ class AdmissionService
         {
             throw new Exception("Chương trình đào tạo không được để trống");
         }
-        _admissionRepository.AddAdmission(admission);
+        _admissionRepository.AddAdmissionAsync(admission);
     }
 
     public void UpdateAdmission(Admission admission) // sua
@@ -58,10 +54,6 @@ class AdmissionService
         if (admission.DOB == null)
         {
             throw new Exception("Ngày sinh không được để trống");
-        }
-        if (admission.StatusAdmission == null)
-        {
-            throw new Exception("Trạng thái không được để trống");
         }
         if (admission.Gender == null)
         {
