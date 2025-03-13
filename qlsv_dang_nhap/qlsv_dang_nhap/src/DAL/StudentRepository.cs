@@ -50,5 +50,20 @@ class StudentRepository
         }
         return DataTable;
     }
+
+    public long getLastestAdmissionId()
+    {
+        long id = 0;
+        using (var conn = new MySqlConnection(_connectionString))
+        {
+            conn.Open();
+            const string query = "SELECT MAX(admission_id) FROM admission";
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                id = Convert.ToInt64(cmd.ExecuteScalar());
+            }
+        }
+        return id;
+    }
 }
 

@@ -33,5 +33,10 @@ class StudentService
     {
 
     }
+
+    public long getLastestAdmissionId()
+    {
+        return _studentRepository.getLastestAdmissionId();
+    }
 }
 

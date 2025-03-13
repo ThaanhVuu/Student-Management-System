@@ -81,13 +81,6 @@ namespace qlsv_dang_nhap.View
                     return;
                 }
 
-                if (newDt.Rows.Count == 0)
-                {
-                    MessageBox.Show("Không có dữ liệu!");
-                    lvAdmission.ItemsSource = null;
-                    return;
-                }
-
                 lvAdmission.ItemsSource = newDt.DefaultView;
             }
             catch (Exception ex)
@@ -105,10 +98,7 @@ namespace qlsv_dang_nhap.View
                 newDt = _programService.GetAllPrograms();
                 // Gán lại ItemsSource để kích hoạt cập nhật UI
                 lvCTDT.ItemsSource = newDt.DefaultView;
-                if (newDt?.Rows.Count == 0)
-                {
-                    MessageBox.Show("Không tìm thấy kết quả");
-                }
+                
             }
             catch (Exception ex)
             {
@@ -123,10 +113,7 @@ namespace qlsv_dang_nhap.View
                 DataTable dt;
                 dt = _studentService.getAllStudent();
                 dssv.ItemsSource = dt.DefaultView;
-                if (dt?.Rows.Count == 0)
-                {
-                    MessageBox.Show("Không tìm thấy kết quả");
-                }
+               
             }
             catch (Exception ex)
             {
@@ -216,7 +203,49 @@ namespace qlsv_dang_nhap.View
 
         private void dssvSelection(object sender, SelectionChangedEventArgs e)
         {
+            // Lấy hàng được chọn
+            var selectedRow = dssv.SelectedItem as DataRowView;
+            if (selectedRow == null) return;
 
+            // Gán giá trị vào các controls
+            try
+            {
+                msv.Text = selectedRow["admission_id"].ToString();
+                hoten.Text = selectedRow["full_name"].ToString();
+                dob.Text = selectedRow["date_of_birth"].ToString();
+                string gender = selectedRow["gender"].ToString();
+                foreach (ComboBoxItem item in gioitinh.Items)
+                {
+                    if (item.Content.ToString() == gender)
+                    {
+                        cbGioiTinh.SelectedItem = item;
+                        break;
+                    }
+                }
+                string program = selectedRow["program_id"].ToString();
+                foreach (ComboBoxItem item in cbProgram.Items)
+                {
+                    if (item.Content.ToString() == program)
+                    {
+                        cbProgram.SelectedItem = item;
+                        break;
+                    }
+                }
+                lop.Text = selectedRow["class_name"].ToString();
+                string status = selectedRow["student_status"].ToString();
+                foreach (ComboBoxItem item in trangthai.Items)
+                {
+                    if (item.Content.ToString() == status)
+                    {
+                        trangthai.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi chọn sinh viên: {ex.Message}");
+            }
         }
 
         private void btnThemSinhVien_Click(object sender, RoutedEventArgs e)
@@ -231,18 +260,16 @@ namespace qlsv_dang_nhap.View
                 Gender = ((ComboBoxItem)gioitinh.SelectedItem).Content.ToString(),
                 StatusAdmission = "Approved"
             };
-
+            long admissionID = _studentService.getLastestAdmissionId();
             try
             {
-                _admissionService.RegisterAdmission(admission);
-                MessageBox.Show("Đã thêm hồ sơ tuyển sinh thành công!");
+                MessageBox.Show($"Đã thêm hồ sơ tuyển sinh {admissionID} thành công!");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi thêm sinh viên (1): {ex.Message}");
             }
 
-            long admissionID = admission.AdmissionId;
 
             var student = new Student
             {
@@ -257,7 +284,7 @@ namespace qlsv_dang_nhap.View
             try
             {
                 _studentService.AddStudent(student);
-                MessageBox.Show("Đã thêm sinh viên thành công!");
+                MessageBox.Show($"Đã thêm sinh viên với mã sinh viên: {admission} thành công!");
                 LoadDataStudent(); StudentResetForm();
             }
             catch (Exception ex)
@@ -363,14 +390,14 @@ namespace qlsv_dang_nhap.View
             {
                 MessageBox.Show($"Lỗi khi tải dữ liệu Hồ sơ tuyển sinh: {ex.Message}");
             }
-            
+
         }
 
         private void btnSuaHoSo_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-               // Validate input
+                // Validate input
                 string ngaysinh = dpNgaySinh.SelectedDate?.ToString("yyyy-MM-dd");
                 long abc = long.Parse(txtTenCTDT.Text);
                 long id2 = long.Parse(txtMaHoSo.Text);
@@ -401,7 +428,7 @@ namespace qlsv_dang_nhap.View
 
         private void btnXoaHoSo_Click(object sender, RoutedEventArgs e)
         {
-            
+
             long id2 = long.Parse(txtMaHoSo.Text);
             // TODO: Xóa hồ sơ tuyển sinh
             MessageBoxResult result = MessageBox.Show($"Bạn có chắc chắn muốn xóa hồ sơ có mã hồ sơ là {id2}?", "Xác nhận",
@@ -588,13 +615,16 @@ namespace qlsv_dang_nhap.View
                 {
                     _programService.UpdateProgram(new Program
                     {
-                        ProgramID = int.Parse(mct.Text),
+                        ProgramID = long.Parse(mct.Text),
                         ProgramName = tct.Text
                     });
+                    MessageBox.Show("Đã sửa chương trình đào tạo thành công!");
+                    LoadDataProgram(); ResetFormCTDT();
                 }
                 else
                 {
                     MessageBox.Show("Không thể sửa mã chương trình đào tạo!");
+                    ResetFormCTDT();
                     return;
                 }
             }

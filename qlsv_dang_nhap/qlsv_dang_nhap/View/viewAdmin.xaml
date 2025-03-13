@@ -43,7 +43,7 @@
                                     <TextBlock Text="Mã sinh viên: "
                                                FontSize="14" FontFamily="Arial" FontWeight="Bold"
                                                Margin="10,0,0,0"/>
-                                    <TextBlock Text="ma_sv"
+                                    <TextBox x:Name="msv"
                                                FontSize="14" FontFamily="Arial" Foreground="Red"/>
                                 </StackPanel>
                             </Border>

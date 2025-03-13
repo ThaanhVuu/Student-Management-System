@@ -24,10 +24,10 @@ public class AdmissionRepository
         return DataTable;
     }
     //them
-    public async Task<int> AddAdmissionAsync(Admission admission)
+    public void AddAdmission(Admission admission)
     {
         using var connection = new MySqlConnection(_connectionString);
-        await connection.OpenAsync(); // Mở kết nối bất đồng bộ
+         connection.Open(); // Mở kết nối bất đồng bộ
 
         // Sử dụng câu truy vấn kết hợp INSERT và SELECT LAST_INSERT_ID()
         const string query = @"
@@ -41,10 +41,7 @@ public class AdmissionRepository
         command.Parameters.AddWithValue("@date_of_birth", admission.DOB);
         command.Parameters.AddWithValue("@gender", admission.Gender);
         command.Parameters.AddWithValue("@admission_status", admission.StatusAdmission);
-
-        // Thực thi và lấy giá trị admission_id tự tăng
-        var newAdmissionId = Convert.ToInt32(await command.ExecuteScalarAsync());
-        return newAdmissionId;
+        command.ExecuteNonQuery();
     }
 
     //sua
@@ -61,10 +58,6 @@ public class AdmissionRepository
         command.Parameters.AddWithValue("@admission_status", admission.StatusAdmission);
         command.Parameters.AddWithValue("@admission_id", admission.AdmissionId);
         int row = command.ExecuteNonQuery();
-        if (row == 0)
-        {
-            throw new Exception("Không tìm thấy hồ sơ cần sửa");
-        }
     }
 
     //xoa
@@ -136,4 +129,6 @@ public class AdmissionRepository
         }
         return dataTable;
     }
+
+    
 }

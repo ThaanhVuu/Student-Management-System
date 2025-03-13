@@ -38,7 +38,6 @@ class AdmissionService
         {
             throw new Exception("Chương trình đào tạo không được để trống");
         }
-        _admissionRepository.AddAdmissionAsync(admission);
     }
 
     public void UpdateAdmission(Admission admission) // sua
