@@ -21,7 +21,7 @@
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                             <TextBlock Text="Mã sinh viên:" FontWeight="Bold" VerticalAlignment="Center"
                                        Margin="20,0,0,0"/>
-                            <TextBlock Text="mã_sinh_viên" Foreground="Red" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding MaSV}" Foreground="Red" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
@@ -56,7 +56,7 @@
                                 <TextBlock Text="Họ và tên: "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="20,0,0,0"/>
-                                <TextBlock Text="ho_va_ten"
+                                <TextBlock Text="{Binding HoTen}"
                                            FontSize="13"
                                            Margin="10,0,0,0"/>
                             </StackPanel>
@@ -66,7 +66,7 @@
                                 <TextBlock Text="Ngày sinh: "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="10,0,0,0"/>
-                                <TextBlock Text="ngay_sinh"
+                                <TextBlock Text="{Binding NgaySinh}"
                                            FontSize="13" 
                                            Margin="10,0,0,0"/>
                             </StackPanel>
@@ -76,7 +76,7 @@
                                 <TextBlock Text="Giới tính: "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="10,0,0,0"/>
-                                <TextBlock Text="gioi_tinh"
+                                <TextBlock Text="{Binding GioiTinh}"
                                            FontSize="13" 
                                            Margin="10,0,0,0"/>
                             </StackPanel>
@@ -105,7 +105,7 @@
                                 <TextBlock Text="Chuyên ngành:  "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="10,0,0,0"/>
-                                <TextBlock Text="chuyen_nganh" Foreground="Red"
+                                <TextBlock Text="{Binding ChuyenNganh}" Foreground="Red"
                                            FontSize="13" 
                                            Margin="10,0,0,0"/>
                             </StackPanel>

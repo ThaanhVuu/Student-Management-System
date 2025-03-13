@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Configuration;
+using qlsv_dang_nhap.userControl;
+using qlsv_dang_nhap.srcMVC.model;
 
 namespace qlsv_dang_nhap.View
 {
@@ -71,6 +73,8 @@ namespace qlsv_dang_nhap.View
                 }
                 else
                 {
+                    Student loggedInStudent = StudentRepository.GetStudentById(userInput);
+                    Student.LoggedInMaSV = loggedInStudent.MaSV; // Lưu MaSV để sử dụng sau này
                     viewTrang_chinh user = new viewTrang_chinh();
                     user.Show();
                     this.Close();
@@ -88,6 +92,12 @@ namespace qlsv_dang_nhap.View
             {
                 btnLogin_Click(sender, e);
             }
+        }
+        private void DangNhapThanhCong(string maSV)
+        {
+            hscnn_Control userInfoControl = new hscnn_Control(maSV);
+            MainContentArea.Children.Clear();
+            MainContentArea.Children.Add(userInfoControl);
         }
     }
 }

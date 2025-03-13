@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using System.Windows.Controls.Primitives;
 using System.Diagnostics;
 using System.Windows.Navigation;
+using qlsv_dang_nhap.srcMVC.model;
 
 namespace qlsv_dang_nhap.View
 {
@@ -177,7 +178,8 @@ namespace qlsv_dang_nhap.View
 
         private void TTCN_click(object sender, RoutedEventArgs e)
         {
-            ContentDisplay.Content = new qlsv_dang_nhap.userControl.hscnn_Control();
+            string loggedInMaSV = Student.LoggedInMaSV;
+            ContentDisplay.Content = new qlsv_dang_nhap.userControl.hscnn_Control(loggedInMaSV);
         }
         private void kqht_click(object sender, RoutedEventArgs e)
         {
