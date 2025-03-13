@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace qlsv_dang_nhap.src.BBL
 {
-    internal class Class1
+    class cbvbc
     {
     }
 }
