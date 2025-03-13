@@ -10,7 +10,7 @@
     <Grid>
         <TabControl Name="TabControlMain" FontSize="16" Background="White" SelectionChanged="tabSelection">
             <!-- Tab Quản lý sinh viên -->
-            <TabItem >
+            <TabItem x:Name="StudentTabb" >
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/icon_admin/icons8-student-24.png"
@@ -43,7 +43,7 @@
                                     <TextBlock Text="Mã sinh viên: "
                                                FontSize="14" FontFamily="Arial" FontWeight="Bold"
                                                Margin="10,0,0,0"/>
-                                    <TextBlock Text="ma_sv"
+                                    <TextBox x:Name="msv"
                                                FontSize="14" FontFamily="Arial" Foreground="Red"/>
                                 </StackPanel>
                             </Border>
@@ -107,11 +107,11 @@
                                     <TextBlock Text="Ngành" FontSize="14" FontWeight="Bold"
                                                VerticalAlignment="Center"
                                                Margin="10,0,0,0"/>
-                                    <ComboBox Margin="35,0,0,0"
+                                    <ComboBox x:Name="cbProgram" Margin="35,0,0,0"
                                               Width="145" Height="22"
                                               VerticalAlignment="Center"
                                               SelectedIndex="0" FontSize="14" >
-                                        <ComboBoxItem Content="ngành" FontSize="14"/>
+                                        <ComboBoxItem Content="7480201" FontSize="14"/>
                                     </ComboBox>
                                 </StackPanel>
                             </Border>
@@ -120,7 +120,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Lớp:" FontSize="14" FontWeight="Bold"
                                                Margin="10,0,0,0"/>
-                                    <TextBox Width="145" Height="22" Margin="51,0,0,0"
+                                    <TextBox x:Name="lop" Width="145" Height="22" Margin="51,0,0,0"
                                              FontSize="14"/>
                                 </StackPanel>
                             </Border>
@@ -130,13 +130,14 @@
                                     <TextBlock Text="Trạng Thái:" FontSize="14" FontWeight="Bold"
                                                Margin="10,0,0,0"
                                                VerticalAlignment="Center"/>
-                                    <ComboBox Width="145" Height="22"
+                                    <ComboBox x:Name="trangthai" Width="145" Height="22"
                                               Margin="6,0,0,0" FontSize="14"
                                               SelectedIndex="0"
                                               VerticalAlignment="Center">
-                                        <ComboBoxItem Content="Đang học" FontSize="14"/>
-                                        <ComboBoxItem Content="Bảo lưu" FontSize="14"/>
-                                        <ComboBoxItem Content="Thôi học" FontSize="14"/>
+                                        <ComboBoxItem Content="Active" FontSize="14"/>
+                                        <ComboBoxItem Content="Inactive" FontSize="14"/>
+                                        <ComboBoxItem Content="Graduated" FontSize="14"/>
+                                        <ComboBoxItem Content="Dropped" FontSize="14"/>
                                     </ComboBox>
                                 </StackPanel>
                             </Border>
@@ -170,14 +171,7 @@
 														Click="btnSuaSinhVien_Click"
                                                         FontSize="14"/>
                                             </Border>
-                                            <Border Grid.Row="2">
-                                                <Button Content="Xóa Sinh Viên"
-                                                        Click="btnXoaHoSo_Click"
-                                                        Width="150" Height="30"
-                                                        FontWeight="Bold"
-                                                        Margin="0,10,00,0"
-                                                        FontSize="14"/>
-                                            </Border>
+                                            <Border Grid.Row="2"/>
                                         </Grid>
                                     </Border>
                                 </Grid>
@@ -237,17 +231,19 @@
                             </Border>
                             <!--sinh_vienListview-->
                             <Border Grid.Row="1">
-                                <ListView HorizontalAlignment="Stretch"
+                                <ListView x:Name = "dssv"
+                                          SelectionChanged="dssvSelection"
+                                    HorizontalAlignment="Stretch"
                                           VerticalAlignment="Stretch">
-                                    <ListView.View>
+                                    <ListView.View >
                                         <GridView>
-                                            <GridViewColumn Header="MaSV" Width="Auto" DisplayMemberBinding="{Binding STT}"/>
-                                            <GridViewColumn Header="Họ Tên" Width="Auto" DisplayMemberBinding="{Binding KyHieu}"/>
-                                            <GridViewColumn Header="Ngày Sinh" Width="Auto" DisplayMemberBinding="{Binding TenHocPhan}"/>
-                                            <GridViewColumn Header="Giới Tính" Width="Auto" DisplayMemberBinding="{Binding SoTinChi}"/>
-                                            <GridViewColumn Header="Ngành" Width="Auto" DisplayMemberBinding="{Binding HeSo}"/>
-                                            <GridViewColumn Header="Lớp" Width="Auto" DisplayMemberBinding="{Binding DiemThanhPhan}"/>
-                                            <GridViewColumn Header="Trạng Thái" Width="Auto" DisplayMemberBinding="{Binding DiemThi}"/>
+                                            <GridViewColumn Header="MaSV" Width="Auto" DisplayMemberBinding="{Binding admission_id}"/>
+                                            <GridViewColumn Header="Họ Tên" Width="Auto" DisplayMemberBinding="{Binding full_name}"/>
+                                            <GridViewColumn Header="Ngày Sinh" Width="Auto" DisplayMemberBinding="{Binding date_of_birth, StringFormat=dd/MM/yyyy}"/>
+                                            <GridViewColumn Header="Giới Tính" Width="Auto" DisplayMemberBinding="{Binding gender}"/>
+                                            <GridViewColumn Header="Ngành" Width="Auto" DisplayMemberBinding="{Binding program_name}"/>
+                                            <GridViewColumn Header="Lớp" Width="Auto" DisplayMemberBinding="{Binding class_name}"/>
+                                            <GridViewColumn Header="Trạng Thái" Width="Auto" DisplayMemberBinding="{Binding student_status}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
@@ -275,7 +271,7 @@
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <StackPanel Orientation="Vertical" Margin="10">
                                 <TextBlock Text="Mã Hồ Sơ Tuyển Sinh:" FontSize="14" FontWeight="Bold"/>
-                                <TextBlock x:Name="txtMaHoSo" Width="225" Height="20" FontSize="14"/>
+                                <TextBox x:Name="txtMaHoSo" Width="225" Height="20" FontSize="14"/>
                                 <TextBlock Text="Tên Chương Trình Đào Tạo:" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
                                 <TextBox x:Name="txtTenCTDT" Width="225" Height="20" FontSize="14"/>
 

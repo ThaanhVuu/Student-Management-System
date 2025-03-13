@@ -1,6 +1,6 @@
-﻿using System.Data;
+﻿using MySql.Data.MySqlClient;
 using System.Configuration;
-using MySql.Data.MySqlClient;
+using System.Data;
 public class AdmissionRepository
 {
     private readonly string _connectionString;
@@ -11,24 +11,30 @@ public class AdmissionRepository
     //lay ds
     public DataTable GetAllAdmissions()
     {
-            var DataTable = new DataTable();
-            using (var conn = new MySqlConnection(_connectionString))
+        var DataTable = new DataTable();
+        using (var conn = new MySqlConnection(_connectionString))
+        {
+            conn.Open();
+            const string query = "Select a.admission_id, p.program_id, p.program_name, a.full_name, a.date_of_birth, a.gender, a.admission_status from admission a inner join program p on a.program_id = p.program_id";
+            using (var adapter = new MySqlDataAdapter(query, conn))
             {
-                conn.Open();
-                const string query = "Select a.admission_id, p.program_id, p.program_name, a.full_name, a.date_of_birth, a.gender, a.admission_status from admission a inner join program p on a.program_id = p.program_id";
-                using (var adapter = new MySqlDataAdapter(query, conn))
-                {
-                    adapter.Fill(DataTable);
-                }
+                adapter.Fill(DataTable);
             }
-            return DataTable;
+        }
+        return DataTable;
     }
     //them
     public void AddAdmission(Admission admission)
     {
         using var connection = new MySqlConnection(_connectionString);
-        connection.Open();
-        const string query = "INSERT INTO admission (program_id, full_name, date_of_birth, gender, admission_status) VALUES (@program_id, @full_name, @date_of_birth, @gender, @admission_status)";
+         connection.Open(); // Mở kết nối bất đồng bộ
+
+        // Sử dụng câu truy vấn kết hợp INSERT và SELECT LAST_INSERT_ID()
+        const string query = @"
+        INSERT INTO admission (program_id, full_name, date_of_birth, gender, admission_status) 
+        VALUES (@program_id, @full_name, @date_of_birth, @gender, @admission_status);
+        SELECT LAST_INSERT_ID();";
+
         using var command = new MySqlCommand(query, connection);
         command.Parameters.AddWithValue("@program_id", admission.ProgramId);
         command.Parameters.AddWithValue("@full_name", admission.FullName);
@@ -43,7 +49,7 @@ public class AdmissionRepository
     {
         using var connection = new MySqlConnection(_connectionString);
         connection.Open();
-        const string query = "UPDATE admission SET program_id = @program_id, full_name = @full_name, date_of_birth = @date_of_birth, gender = @gender, admission_status = @admission_status WHERE admission_id = @admission_id";
+        const string query = "UPDATE admission SET program_id = @program_id, full_name = @full_name, date_of_birth = @date_of_birth, gender = @gender WHERE admission_id = @admission_id";
         using var command = new MySqlCommand(query, connection);
         command.Parameters.AddWithValue("@program_id", admission.ProgramId);
         command.Parameters.AddWithValue("@full_name", admission.FullName);
@@ -52,10 +58,6 @@ public class AdmissionRepository
         command.Parameters.AddWithValue("@admission_status", admission.StatusAdmission);
         command.Parameters.AddWithValue("@admission_id", admission.AdmissionId);
         int row = command.ExecuteNonQuery();
-        if(row == 0)
-        {
-            throw new Exception("Không tìm thấy hồ sơ cần sửa");
-        }
     }
 
     //xoa
@@ -127,4 +129,6 @@ public class AdmissionRepository
         }
         return dataTable;
     }
+
+    
 }
