@@ -12,8 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Configuration;
-using qlsv_dang_nhap.userControl;
-using qlsv_dang_nhap.srcMVC.model;
 
 namespace qlsv_dang_nhap.View
 {
@@ -54,36 +52,7 @@ namespace qlsv_dang_nhap.View
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string userInput = txtUser.Text;
-            string passInput = txtPass.Password;
-            if (string.IsNullOrEmpty(userInput) || string.IsNullOrEmpty(passInput))
-            {
-                MessageBox.Show("Vui lòng nhập tên đăng nhập và mật khẩu");
-                return;
-            }
-            try
-            {
-                _user = _userService.Authenticate(userInput, passInput);
-                MessageBox.Show($"Đăng nhập thành công, chào mừng {_user.Username}");
-                if (_user.Role == 1)
-                {
-                    viewAdmin admin = new viewAdmin();
-                    admin.Show();
-                    this.Close();
-                }
-                else
-                {
-                    Student loggedInStudent = StudentRepository.GetStudentById(userInput);
-                    Student.LoggedInMaSV = loggedInStudent.MaSV; // Lưu MaSV để sử dụng sau này
-                    viewTrang_chinh user = new viewTrang_chinh();
-                    user.Show();
-                    this.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+           
         }
 
             private void mk_enter(object sender, KeyEventArgs e)
@@ -95,9 +64,7 @@ namespace qlsv_dang_nhap.View
         }
         private void DangNhapThanhCong(Student student)
         {
-            hscnn_Control userInfoControl = new hscnn_Control(student);
-            MainContentArea.Children.Clear();
-            MainContentArea.Children.Add(userInfoControl);
+         
         }
     }
 }

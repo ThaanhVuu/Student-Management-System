@@ -54,11 +54,6 @@
     <None Remove="Images\nen.jpg" />
     <None Remove="Images\Screenshot 2024-09-23 213946.jpg" />
     <None Remove="Images\Screenshot 2025-03-04 024547.png" />
-    <None Remove="userControl\image_userControl\27. vuông.jpg" />
-    <None Remove="userControl\image_userControl\icons8-bell-30.png" />
-    <None Remove="userControl\image_userControl\icons8-camera-50.png" />
-    <None Remove="userControl\image_userControl\icons8-new-50 %281%29.png" />
-    <None Remove="userControl\image_userControl\Screenshot 2025-03-04 222252.png" />
     <None Remove="video\Đăng kí học phần lớp tín chỉ Đại học kiến trúc.mp4" />
   </ItemGroup>
 
@@ -94,9 +89,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Screenshot 2025-03-04 024547.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="userControl\image_userControl\icons8-bell-30.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -205,15 +197,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Screenshot 2024-09-23 213946.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="userControl\image_userControl\icons8-camera-50.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="userControl\image_userControl\icons8-new-50 (1).png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="userControl\image_userControl\Screenshot 2025-03-04 222252.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="video\Đăng kí học phần lớp tín chỉ Đại học kiến trúc.mp4">
