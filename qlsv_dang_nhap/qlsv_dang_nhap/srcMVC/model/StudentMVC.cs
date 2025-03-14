@@ -1,8 +1,7 @@
-﻿using System;
-
+﻿// Student.cs
 namespace qlsv_dang_nhap.srcMVC.model
 {
-    public class Student
+    public class StudentMVC
     {
         public string? MaSV { get; set; }
         public string? HoTen { get; set; }

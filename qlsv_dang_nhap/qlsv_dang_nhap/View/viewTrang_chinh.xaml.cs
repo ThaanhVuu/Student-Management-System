@@ -17,6 +17,7 @@ using System.Windows.Controls.Primitives;
 using System.Diagnostics;
 using System.Windows.Navigation;
 using qlsv_dang_nhap.srcMVC.model;
+using qlsv_dang_nhap.userControl;
 
 namespace qlsv_dang_nhap.View
 {
@@ -178,8 +179,26 @@ namespace qlsv_dang_nhap.View
 
         private void TTCN_click(object sender, RoutedEventArgs e)
         {
-            string loggedInMaSV = Student.LoggedInMaSV;
-            ContentDisplay.Content = new qlsv_dang_nhap.userControl.hscnn_Control(loggedInMaSV);
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+
+            // Lấy thông tin sinh viên từ Repository
+            StudentMVC student = StudentRepository.GetStudentById(loggedInMaSV);
+
+            if (student != null)
+            {
+                ContentDisplay.Content = new hscnn_Control(student); // Truyền đối tượng student
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy sinh viên!");
+            }
         }
         private void kqht_click(object sender, RoutedEventArgs e)
         {
@@ -190,5 +209,4 @@ namespace qlsv_dang_nhap.View
             ContentDisplay.Content = new qlsv_dang_nhap.userControl.dkControl();
         }
     }
-
 }

@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using qlsv_dang_nhap.srcMVC.controller;
+using qlsv_dang_nhap.srcMVC.model;
 using qlsv_dang_nhap.userControl;
-using qlsv_dang_nhap.viewmodel;
 
 namespace qlsv_dang_nhap.userControl
 {
@@ -25,18 +24,18 @@ namespace qlsv_dang_nhap.userControl
     {
         public StudentViewModel ViewModel { get; set; }
 
-        public hscnn_Control(Student student)
+        public hscnn_Control(StudentMVC student)
         {
             InitializeComponent();
             ViewModel = new StudentViewModel
             {
-                MaSV = student.MaSV,
-                HoTen = student.HoTen,
-                NgaySinh = student.NgaySinh,
-                GioiTinh = student.GioiTinh,
-                ChuyenNganh = student.ChuyenNganh,
-                DienThoai = student.DienThoai,
-                Email = student.Email
+                MaSV = student.MaSV ?? "",
+                HoTen = student.HoTen ?? "",
+                NgaySinh = student.NgaySinh ?? "",
+                GioiTinh = student.GioiTinh ?? "",
+                Nganh = student.Nganh ?? "",
+                SDT = student.SDT ?? "",
+                Email = student.Email ?? ""
             };
             DataContext = ViewModel;
         }

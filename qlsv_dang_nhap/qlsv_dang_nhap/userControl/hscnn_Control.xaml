@@ -105,7 +105,7 @@
                                 <TextBlock Text="Chuyên ngành:  "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="10,0,0,0"/>
-                                <TextBlock Text="{Binding ChuyenNganh}" Foreground="Red"
+                                <TextBlock Text="{Binding Nganh}" Foreground="Red"
                                            FontSize="13" 
                                            Margin="10,0,0,0"/>
                             </StackPanel>
@@ -126,12 +126,12 @@
                                                FontSize="13"
                                                FontWeight="Bold"
                                                Margin="20,0,0,0"/>
-                                    <TextBox x:Name="txtPhone"
+                                    <TextBox x:Name="txtPhone" 
                                              Width="150" Height="20"
                                              HorizontalAlignment="Left"
                                              Margin="10,0,0,0"
                                              Foreground="#595d60"
-                                             Text="0338910jqk"/>
+                                             Text="{Binding SDT}"/>
                                 </StackPanel>
                             </Border>
                             <Border Grid.Column="1">
@@ -143,7 +143,7 @@
                                              HorizontalAlignment="Left"
                                              Margin="10,0,0,0"
                                              Foreground="#595d60"
-                                             Text="vulonton@gmail.com"/>
+                                             Text="{Binding Email}"/>
                                 </StackPanel>
                             </Border>
                         </Grid>
