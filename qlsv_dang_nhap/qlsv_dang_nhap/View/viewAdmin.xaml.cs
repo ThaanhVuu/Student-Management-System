@@ -248,7 +248,7 @@ namespace qlsv_dang_nhap.View
             }
         }
 
-        private void btnThemSinhVien_Click(object sender, RoutedEventArgs e)
+        private void btnThemSinhVien_Click(object sender, RoutedEventArgs e)  //đang lỗi: lấy được admission_id mới nhất rồi nhưng đéo thực hiện được chức năng addAdmission????
         {
             long pid = long.Parse(((ComboBoxItem)cbProgram.SelectedItem).Content.ToString());
             // TODO: Thêm mới sinh viên
