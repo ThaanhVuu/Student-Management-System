@@ -93,9 +93,9 @@ namespace qlsv_dang_nhap.View
                 btnLogin_Click(sender, e);
             }
         }
-        private void DangNhapThanhCong(string maSV)
+        private void DangNhapThanhCong(Student student)
         {
-            hscnn_Control userInfoControl = new hscnn_Control(maSV);
+            hscnn_Control userInfoControl = new hscnn_Control(student);
             MainContentArea.Children.Clear();
             MainContentArea.Children.Add(userInfoControl);
         }

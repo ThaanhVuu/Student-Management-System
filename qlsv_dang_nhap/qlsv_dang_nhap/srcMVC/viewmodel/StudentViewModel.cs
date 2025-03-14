@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
 
-namespace qlsv_dang_nhap.viewmodel
-{
     public class StudentViewModel : INotifyPropertyChanged
     {
         private string _maSV;
@@ -60,4 +58,3 @@ namespace qlsv_dang_nhap.viewmodel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-}

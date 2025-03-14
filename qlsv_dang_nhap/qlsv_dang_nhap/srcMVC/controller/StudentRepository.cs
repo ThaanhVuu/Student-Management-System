@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Data;
 using MySql.Data.MySqlClient;
-using qlsv_dang_nhap.srcMVC.model;
+using qlsv_dang_nhap;
 
-namespace qlsv_dang_nhap.srcMVC.controller
-{
     public class StudentRepository
     {
         // Thay YOUR_SERVER, YOUR_DATABASE, YOUR_USER, YOUR_PASSWORD bằng...
@@ -43,4 +41,3 @@ namespace qlsv_dang_nhap.srcMVC.controller
             return student;
         }
     }
-}
