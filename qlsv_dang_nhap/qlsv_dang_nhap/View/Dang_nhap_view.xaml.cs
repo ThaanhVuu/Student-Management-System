@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Configuration;
+using qlsv_dang_nhap.userControl;
+using qlsv_dang_nhap.srcMVC.model;
 
 namespace qlsv_dang_nhap.View
 {
@@ -71,6 +73,14 @@ namespace qlsv_dang_nhap.View
                 }
                 else
                 {
+                    StudentMVC loggedInStudent = StudentRepository.GetStudentById(userInput);
+
+                    if (loggedInStudent == null)
+                    {
+                        MessageBox.Show("Không tìm thấy thông tin sinh viên!");
+                        return;
+                    }
+                    StudentMVC.LoggedInMaSV = loggedInStudent.MaSV;
                     viewTrang_chinh user = new viewTrang_chinh();
                     user.Show();
                     this.Close();

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using qlsv_dang_nhap.srcMVC.model;
 using System.Configuration;
 using System.Data;
 
