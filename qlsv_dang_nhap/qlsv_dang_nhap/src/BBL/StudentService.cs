@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Windows.Documents;
 
 class StudentService
 {
@@ -33,11 +32,6 @@ class StudentService
     public void DeleteStudent(int id)
     {
 
-    }
-
-    public long getLastestAdmissionId()
-    {
-        return _studentRepository.getLastestAdmissionId();
     }
 
     public DataTable? SearchStudent(string keyword)

@@ -61,6 +61,7 @@ namespace qlsv_dang_nhap.View
             {
                 MessageBox.Show($"Lỗi khi chuyển tab: {ex.Message}");
             }
+
         }
 
         // Phương thức để tải dữ liệu ban đầu
@@ -98,7 +99,7 @@ namespace qlsv_dang_nhap.View
                 newDt = _programService.GetAllPrograms();
                 // Gán lại ItemsSource để kích hoạt cập nhật UI
                 lvCTDT.ItemsSource = newDt.DefaultView;
-                
+
             }
             catch (Exception ex)
             {
@@ -113,7 +114,7 @@ namespace qlsv_dang_nhap.View
                 DataTable dt;
                 dt = string.IsNullOrEmpty(keyword) ? _studentService.getAllStudent() : _studentService.SearchStudent(keyword);
                 dssv.ItemsSource = dt.DefaultView;
-               
+
             }
             catch (Exception ex)
             {
@@ -212,7 +213,7 @@ namespace qlsv_dang_nhap.View
             {
                 msv.Text = selectedRow["admission_id"].ToString();
                 hoten.Text = selectedRow["full_name"].ToString();
-                dob.Text = selectedRow["date_of_birth"].ToString();
+                dob.Text = ((DateTime)selectedRow["date_of_birth"]).ToString("yyyy-MM-dd");
                 string gender = selectedRow["gender"].ToString();
                 foreach (ComboBoxItem item in gioitinh.Items)
                 {
@@ -248,50 +249,44 @@ namespace qlsv_dang_nhap.View
             }
         }
 
-        private void btnThemSinhVien_Click(object sender, RoutedEventArgs e)  //đang lỗi: lấy được admission_id mới nhất rồi nhưng đéo thực hiện được chức năng addAdmission????
+        private void btnThemSinhVien_Click(object sender, RoutedEventArgs e)
         {
-            long pid = long.Parse(((ComboBoxItem)cbProgram.SelectedItem).Content.ToString());
-            // TODO: Thêm mới sinh viên
-            var admission = new Admission
-            {
-                ProgramId = pid,
-                FullName = txtHoTen.Text,
-                DOB = dob.Text,
-                Gender = ((ComboBoxItem)gioitinh.SelectedItem).Content.ToString(),
-                StatusAdmission = "Approved"
-            };
-            long admissionID = _studentService.getLastestAdmissionId();
             try
             {
-                MessageBox.Show($"Đã thêm hồ sơ tuyển sinh {admissionID} thành công!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi thêm sinh viên (1): {ex.Message}");
-            }
+                long pid = long.Parse(((ComboBoxItem)cbProgram.SelectedItem).Content.ToString());
 
+                // Tạo và thêm Admission
+                var admission = new Admission
+                {
+                    ProgramId = pid,
+                    FullName = hoten.Text,
+                    DOB = dob.Text,
+                    Gender = ((ComboBoxItem)gioitinh.SelectedItem).Content.ToString(),
+                    StatusAdmission = "Approved"
+                };
 
-            var student = new Student
-            {
-                Id = admissionID,
-                Name = txtHoTen.Text,
-                Dob = dob.Text,
-                gender = ((ComboBoxItem)gioitinh.SelectedItem).Content.ToString(),
-                ProgramId = pid,
-                ClassName = lop.Text,
-                Status = ((ComboBoxItem)trangthai.SelectedItem).Content.ToString()
-            };
-            try
-            {
+                long admissionID = _admissionService.RegisterAdmission(admission); // Phương thức đã sửa
+
+                // Tạo Student từ thông tin Admission
+                var student = new Student
+                {
+                    Id =(long)admissionID,
+                    Name = admission.FullName,
+                    Dob = admission.DOB,
+                    gender = admission.Gender,
+                    ProgramId = admission.ProgramId,
+                    ClassName = lop.Text,
+                    Status = ((ComboBoxItem)trangthai.SelectedItem).Content.ToString()
+                };
+
                 _studentService.AddStudent(student);
-                MessageBox.Show($"Đã thêm sinh viên với mã sinh viên: {admission} thành công!");
-                LoadDataStudent(); StudentResetForm();
+                MessageBox.Show("Thêm hồ sơ sinh viên thành công!");
+                LoadDataStudent();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi thêm sinh viên (2): {ex.Message}");
+                MessageBox.Show($"Lỗi khi thêm sinh viên: {ex.Message}");
             }
-
         }
 
         private void btnSuaSinhVien_Click(object sender, RoutedEventArgs e)

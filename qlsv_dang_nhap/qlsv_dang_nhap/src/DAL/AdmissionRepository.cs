@@ -15,7 +15,7 @@ public class AdmissionRepository
         using (var conn = new MySqlConnection(_connectionString))
         {
             conn.Open();
-            const string query = "Select a.admission_id, p.program_id, p.program_name, a.full_name, a.date_of_birth, a.gender, a.admission_status from admission a inner join program p on a.program_id = p.program_id";
+            const string query = "Select a.admission_id, p.program_id, p.program_name, a.full_name, a.date_of_birth, a.gender, a.admission_status from admission a inner join program p on a.program_id = p.program_id order by admission_id desc";
             using (var adapter = new MySqlDataAdapter(query, conn))
             {
                 adapter.Fill(DataTable);
@@ -24,10 +24,10 @@ public class AdmissionRepository
         return DataTable;
     }
     //them
-    public void AddAdmission(Admission admission)
+    public long AddAdmission(Admission admission)
     {
         using var connection = new MySqlConnection(_connectionString);
-         connection.Open(); // Mở kết nối bất đồng bộ
+        connection.Open(); // Mở kết nối bất đồng bộ
 
         // Sử dụng câu truy vấn kết hợp INSERT và SELECT LAST_INSERT_ID()
         const string query = @"
@@ -35,13 +35,17 @@ public class AdmissionRepository
         VALUES (@program_id, @full_name, @date_of_birth, @gender, @admission_status);
         SELECT LAST_INSERT_ID();";
 
-        using var command = new MySqlCommand(query, connection);
-        command.Parameters.AddWithValue("@program_id", admission.ProgramId);
-        command.Parameters.AddWithValue("@full_name", admission.FullName);
-        command.Parameters.AddWithValue("@date_of_birth", admission.DOB);
-        command.Parameters.AddWithValue("@gender", admission.Gender);
-        command.Parameters.AddWithValue("@admission_status", admission.StatusAdmission);
-        command.ExecuteNonQuery();
+        using (var command = new MySqlCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@program_id", admission.ProgramId);
+            command.Parameters.AddWithValue("@full_name", admission.FullName);
+            command.Parameters.AddWithValue("@date_of_birth", admission.DOB);
+            command.Parameters.AddWithValue("@gender", admission.Gender);
+            command.Parameters.AddWithValue("@admission_status", admission.StatusAdmission);
+            ulong unsignedId = (ulong)command.ExecuteScalar();
+            long newId = (long)unsignedId; // Chuyển đổi an toàn
+            return newId;
+        }
     }
 
     //sua
@@ -113,6 +117,7 @@ public class AdmissionRepository
             INNER JOIN program p ON a.program_id = p.program_id 
             WHERE p.program_name LIKE @keyword 
                 OR a.full_name LIKE @keyword 
+                OR a.admission_id Like @keyword
                 OR DATE_FORMAT(a.date_of_birth, '%Y-%m-%d') LIKE @keyword 
                 OR a.gender LIKE @keyword 
                 OR a.admission_status LIKE @keyword";
@@ -130,5 +135,5 @@ public class AdmissionRepository
         return dataTable;
     }
 
-    
+
 }
