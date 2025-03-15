@@ -2,12 +2,13 @@
 using MySql.Data.MySqlClient;
 using System.Windows;
 using qlsv_dang_nhap.srcMVC.model;
+using System.Configuration;
 
 namespace qlsv_dang_nhap.srcMVC.model
 {
     public class StudentRepository
     {
-        private static string connectionString = "Server=YOUR_SERVER;Database=YOUR_DATABASE;User=YOUR_USER;Password=YOUR_PASSWORD;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["sms"].ConnectionString;
 
         internal static StudentMVC GetStudentById(string MaSV)
         {
@@ -17,7 +18,7 @@ namespace qlsv_dang_nhap.srcMVC.model
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT MaSV, HoTen, NgaySinh, GioiTinh, Lop, Nganh, Email, SDT, TrangThai FROM SinhVien WHERE MaSV = @MaSV";
+                    string query = "SELECT a.admission_id, s.full_name, s.date_of_birth, s.gender, s.class_name, p.program_name,s.student_status FROM student s inner join program p on p.program_id = s.program_id inner join admission a on a.admission_id = s.admission_id WHERE a.admission_id = @MaSV";
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@MaSV", MaSV);
@@ -27,15 +28,13 @@ namespace qlsv_dang_nhap.srcMVC.model
                             {
                                 student = new StudentMVC
                                 {
-                                    MaSV = reader["MaSV"]?.ToString(),
-                                    HoTen = reader["HoTen"]?.ToString(),
-                                    NgaySinh = reader["NgaySinh"]?.ToString(),
-                                    GioiTinh = reader["GioiTinh"]?.ToString(),
-                                    Lop = reader["Lop"]?.ToString(),
-                                    Nganh = reader["Nganh"]?.ToString(),
-                                    Email = reader["Email"]?.ToString(),
-                                    SDT = reader["SDT"]?.ToString(),
-                                    TrangThai = reader["TrangThai"]?.ToString()
+                                    MaSV = reader["admission_id"]?.ToString(),
+                                    HoTen = reader["full_name"]?.ToString(),
+                                    NgaySinh = reader["date_of_birth"]?.ToString(),
+                                    GioiTinh = reader["gender"]?.ToString(),
+                                    Lop = reader["class_name"]?.ToString(),
+                                    Nganh = reader["program_name"]?.ToString(),
+                                    TrangThai = reader["student_status"]?.ToString()
                                 };
                             }
                             else

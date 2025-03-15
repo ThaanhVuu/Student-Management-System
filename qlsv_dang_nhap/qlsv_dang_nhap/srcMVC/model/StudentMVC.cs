@@ -9,8 +9,6 @@ namespace qlsv_dang_nhap.srcMVC.model
         public string? GioiTinh { get; set; }
         public string? Lop { get; set; }
         public string? Nganh { get; set; }
-        public string? Email { get; set; }
-        public string? SDT { get; set; }
         public string? TrangThai { get; set; }
         public static string? LoggedInMaSV { get; set; }
     }
