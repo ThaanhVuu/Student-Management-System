@@ -82,6 +82,7 @@
                                         <TextBox x:Name="dob" 
                                                     Width="225" 
                                                     VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                   
                                     </Border>
                                 </Grid>
                             </Border>
@@ -242,6 +243,7 @@
                                             <GridViewColumn Header="Ngày Sinh" Width="Auto" DisplayMemberBinding="{Binding date_of_birth, StringFormat=dd/MM/yyyy}"/>
                                             <GridViewColumn Header="Giới Tính" Width="Auto" DisplayMemberBinding="{Binding gender}"/>
                                             <GridViewColumn Header="Ngành" Width="Auto" DisplayMemberBinding="{Binding program_name}"/>
+                                            <GridViewColumn Header="Giới Tính" Width="0" DisplayMemberBinding="{Binding program_id}"/>
                                             <GridViewColumn Header="Lớp" Width="Auto" DisplayMemberBinding="{Binding class_name}"/>
                                             <GridViewColumn Header="Trạng Thái" Width="Auto" DisplayMemberBinding="{Binding student_status}"/>
                                         </GridView>

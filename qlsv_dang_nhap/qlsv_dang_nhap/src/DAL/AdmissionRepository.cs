@@ -115,7 +115,8 @@ public class AdmissionRepository
                 OR a.full_name LIKE @keyword 
                 OR DATE_FORMAT(a.date_of_birth, '%Y-%m-%d') LIKE @keyword 
                 OR a.gender LIKE @keyword 
-                OR a.admission_status LIKE @keyword";
+                OR a.admission_status LIKE @keyword
+                OR a.admission_id LIKE @keyword";
 
             using (var cmd = new MySqlCommand(query, conn))
             {

@@ -98,7 +98,7 @@ namespace qlsv_dang_nhap.View
                 newDt = _programService.GetAllPrograms();
                 // Gán lại ItemsSource để kích hoạt cập nhật UI
                 lvCTDT.ItemsSource = newDt.DefaultView;
-                
+
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@ namespace qlsv_dang_nhap.View
                 DataTable dt;
                 dt = _studentService.getAllStudent();
                 dssv.ItemsSource = dt.DefaultView;
-               
+
             }
             catch (Exception ex)
             {
@@ -212,7 +212,7 @@ namespace qlsv_dang_nhap.View
             {
                 msv.Text = selectedRow["admission_id"].ToString();
                 hoten.Text = selectedRow["full_name"].ToString();
-                dob.Text = selectedRow["date_of_birth"].ToString();
+                dob.Text = ((DateTime)selectedRow["date_of_birth"]).ToString("yyyy-MM-dd");
                 string gender = selectedRow["gender"].ToString();
                 foreach (ComboBoxItem item in gioitinh.Items)
                 {
@@ -250,26 +250,29 @@ namespace qlsv_dang_nhap.View
 
         private void btnThemSinhVien_Click(object sender, RoutedEventArgs e)  //đang lỗi: lấy được admission_id mới nhất rồi nhưng đéo thực hiện được chức năng addAdmission????
         {
+
             long pid = long.Parse(((ComboBoxItem)cbProgram.SelectedItem).Content.ToString());
             // TODO: Thêm mới sinh viên
-            var admission = new Admission
-            {
-                ProgramId = pid,
-                FullName = txtHoTen.Text,
-                DOB = dob.Text,
-                Gender = ((ComboBoxItem)gioitinh.SelectedItem).Content.ToString(),
-                StatusAdmission = "Approved"
-            };
-            long admissionID = _studentService.getLastestAdmissionId();
+            long admissionID = 0;
             try
             {
-                MessageBox.Show($"Đã thêm hồ sơ tuyển sinh {admissionID} thành công!");
+                var admission = new Admission //phai them hstuyensinh trc vi quh 1 admission 1 studetn trong db.
+                {
+                    ProgramId = pid,
+                    FullName = hoten.Text.Trim(),
+                    DOB = dob.Text,
+                    Gender = ((ComboBoxItem)gioitinh.SelectedItem)?.Content.ToString(),
+                    StatusAdmission = "Approved"
+                };
+
+                _admissionService.RegisterAdmission(admission);
+                admissionID = _studentService.getLastestAdmissionId();
+            
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi thêm sinh viên (1): {ex.Message}");
             }
-
 
             var student = new Student
             {
@@ -281,10 +284,11 @@ namespace qlsv_dang_nhap.View
                 ClassName = lop.Text,
                 Status = ((ComboBoxItem)trangthai.SelectedItem).Content.ToString()
             };
+
             try
             {
                 _studentService.AddStudent(student);
-                MessageBox.Show($"Đã thêm sinh viên với mã sinh viên: {admission} thành công!");
+                MessageBox.Show($"Đã thêm sinh viên với mã sinh viên: {admissionID} thành công!");
                 LoadDataStudent(); StudentResetForm();
             }
             catch (Exception ex)
