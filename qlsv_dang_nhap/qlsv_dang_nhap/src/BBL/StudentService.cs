@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Windows.Documents;
 
 class StudentService
 {
@@ -37,6 +38,23 @@ class StudentService
     public long getLastestAdmissionId()
     {
         return _studentRepository.getLastestAdmissionId();
+    }
+
+    public DataTable? SearchStudent(string keyword)
+    {
+        if (keyword == null)
+        {
+            throw new Exception("Vui lòng nhập từ khóa tìm kiếm");
+        }
+        try
+        {
+            return _studentRepository.SearchStudent(keyword);
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Looix: " + e.Message);
+        }
     }
 }
 

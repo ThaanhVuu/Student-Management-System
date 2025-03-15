@@ -111,7 +111,7 @@ namespace qlsv_dang_nhap.View
             try
             {
                 DataTable dt;
-                dt = _studentService.getAllStudent();
+                dt = string.IsNullOrEmpty(keyword) ? _studentService.getAllStudent() : _studentService.SearchStudent(keyword);
                 dssv.ItemsSource = dt.DefaultView;
                
             }
@@ -311,6 +311,16 @@ namespace qlsv_dang_nhap.View
                 MessageBox.Show("Đã xóa sinh viên thành công!");
             }
         }
+
+        private void k_studentsearch(object sender, KeyEventArgs e)
+        {
+            keyword = txtSearchStudent.Text.Trim();
+            if (e.Key == Key.Enter)
+            {
+                LoadDataStudent();
+            }
+        }
+
         #endregion
 
         #region Tab Quản lý tuyển sinh
