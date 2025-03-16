@@ -104,7 +104,6 @@ class StudentRepository
             or s.class_name like @keyword
             or s.gender like @keyword
             ";
-
             using (var cmd = new MySqlCommand(query, conn))
             {
                 cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
