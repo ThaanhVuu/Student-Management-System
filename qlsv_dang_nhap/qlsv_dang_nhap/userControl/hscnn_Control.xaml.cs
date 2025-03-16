@@ -47,12 +47,12 @@ namespace qlsv_dang_nhap.userControl
 
         private void btnSuathongSinhien_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Coming soon!");
+            MessageBox.Show("Chức năng chưa được triển khai.");
         }
 
         private void btnXoathongtinSinhvien_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Coming soon!");
+            MessageBox.Show("Chức năng chưa được triển khai.");
         }
     }
 }

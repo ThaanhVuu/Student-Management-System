@@ -104,6 +104,15 @@ namespace qlsv_dang_nhap.View
         }
         private void btnSearchIcon_Click(object sender, RoutedEventArgs e)
         {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+
             MessageBox.Show("Chức năng tìm kiếm chưa được triển khai.");
         }
         //ham di chuyen text
@@ -201,10 +210,26 @@ namespace qlsv_dang_nhap.View
         }
         private void kqht_click(object sender, RoutedEventArgs e)
         {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
             ContentDisplay.Content = new qlsv_dang_nhap.userControl.kqhtControl();
         }
         private void dang_ky_click(object sender, RoutedEventArgs e)
         {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
             ContentDisplay.Content = new qlsv_dang_nhap.userControl.dkControl();
         }
 
@@ -216,6 +241,234 @@ namespace qlsv_dang_nhap.View
             {
                 Application.Current.Shutdown();
             }
+        }
+
+        private void dang_nhap_Click(object sender, RoutedEventArgs e)
+        {
+            Dang_nhap_view dangNhap = new Dang_nhap_view();
+            dangNhap.Show();
+            this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_10(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_11(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_12(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_13(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_14(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_15(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_16(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void Button_Click_17(object sender, RoutedEventArgs e)
+        {
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            // Kiểm tra null hoặc rỗng
+            if (string.IsNullOrEmpty(loggedInMaSV))
+            {
+                MessageBox.Show("Vui lòng đăng nhập!");
+                return;
+            }
+            MessageBox.Show("Chức năng chưa được triển khai.");
         }
     }
 }
