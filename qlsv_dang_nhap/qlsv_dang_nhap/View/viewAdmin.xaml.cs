@@ -61,6 +61,7 @@ namespace qlsv_dang_nhap.View
             {
                 MessageBox.Show($"Lỗi khi chuyển tab: {ex.Message}");
             }
+
         }
 
         // Phương thức để tải dữ liệu ban đầu
@@ -111,7 +112,7 @@ namespace qlsv_dang_nhap.View
             try
             {
                 DataTable dt;
-                dt = _studentService.getAllStudent();
+                dt = string.IsNullOrEmpty(keyword) ? _studentService.getAllStudent() : _studentService.SearchStudent(keyword);
                 dssv.ItemsSource = dt.DefaultView;
 
             }
@@ -248,54 +249,44 @@ namespace qlsv_dang_nhap.View
             }
         }
 
-        private void btnThemSinhVien_Click(object sender, RoutedEventArgs e)  //đang lỗi: lấy được admission_id mới nhất rồi nhưng đéo thực hiện được chức năng addAdmission????
+        private void btnThemSinhVien_Click(object sender, RoutedEventArgs e)
         {
-
-            long pid = long.Parse(((ComboBoxItem)cbProgram.SelectedItem).Content.ToString());
-            // TODO: Thêm mới sinh viên
-            long admissionID = 0;
             try
             {
-                var admission = new Admission //phai them hstuyensinh trc vi quh 1 admission 1 studetn trong db.
+                long pid = long.Parse(((ComboBoxItem)cbProgram.SelectedItem).Content.ToString());
+
+                // Tạo và thêm Admission
+                var admission = new Admission
                 {
                     ProgramId = pid,
-                    FullName = hoten.Text.Trim(),
+                    FullName = hoten.Text,
                     DOB = dob.Text,
-                    Gender = ((ComboBoxItem)gioitinh.SelectedItem)?.Content.ToString(),
+                    Gender = ((ComboBoxItem)gioitinh.SelectedItem).Content.ToString(),
                     StatusAdmission = "Approved"
                 };
 
-                _admissionService.RegisterAdmission(admission);
-                admissionID = _studentService.getLastestAdmissionId();
-            
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi thêm sinh viên (1): {ex.Message}");
-            }
+                long admissionID = _admissionService.RegisterAdmission(admission); // Phương thức đã sửa
 
-            var student = new Student
-            {
-                Id = admissionID,
-                Name = txtHoTen.Text,
-                Dob = dob.Text,
-                gender = ((ComboBoxItem)gioitinh.SelectedItem).Content.ToString(),
-                ProgramId = pid,
-                ClassName = lop.Text,
-                Status = ((ComboBoxItem)trangthai.SelectedItem).Content.ToString()
-            };
+                // Tạo Student từ thông tin Admission
+                var student = new Student
+                {
+                    Id =(long)admissionID,
+                    Name = admission.FullName,
+                    Dob = admission.DOB,
+                    gender = admission.Gender,
+                    ProgramId = admission.ProgramId,
+                    ClassName = lop.Text,
+                    Status = ((ComboBoxItem)trangthai.SelectedItem).Content.ToString()
+                };
 
-            try
-            {
                 _studentService.AddStudent(student);
-                MessageBox.Show($"Đã thêm sinh viên với mã sinh viên: {admissionID} thành công!");
-                LoadDataStudent(); StudentResetForm();
+                MessageBox.Show("Thêm hồ sơ sinh viên thành công!");
+                LoadDataStudent();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi thêm sinh viên (2): {ex.Message}");
+                MessageBox.Show($"Lỗi khi thêm sinh viên: {ex.Message}");
             }
-
         }
 
         private void btnSuaSinhVien_Click(object sender, RoutedEventArgs e)
@@ -315,6 +306,16 @@ namespace qlsv_dang_nhap.View
                 MessageBox.Show("Đã xóa sinh viên thành công!");
             }
         }
+
+        private void k_studentsearch(object sender, KeyEventArgs e)
+        {
+            keyword = txtSearchStudent.Text.Trim();
+            if (e.Key == Key.Enter)
+            {
+                LoadDataStudent();
+            }
+        }
+
         #endregion
 
         #region Tab Quản lý tuyển sinh

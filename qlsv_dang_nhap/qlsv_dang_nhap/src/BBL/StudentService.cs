@@ -34,11 +34,6 @@ class StudentService
         int abc;
     }
 
-    public long getLastestAdmissionId()
-    {
-        return _studentRepository.getLastestAdmissionId();
-    }
-
     public DataTable? SearchStudent(string keyword)
     {
         if (keyword == null)
@@ -55,5 +50,6 @@ class StudentService
             throw new Exception("Looix: " + e.Message);
         }
     }
+
 }
 

@@ -192,6 +192,8 @@
                                     <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" Background="White">
                                         <Grid>
                                             <TextBox x:Name="txtSearchStudent"
+                                                     KeyDown="k_studentsearch"
+                                                     
                                                      Width="290"
                                                      Height="25"
                                                      FontSize="12"
@@ -243,7 +245,8 @@
                                             <GridViewColumn Header="Ngày Sinh" Width="Auto" DisplayMemberBinding="{Binding date_of_birth, StringFormat=dd/MM/yyyy}"/>
                                             <GridViewColumn Header="Giới Tính" Width="Auto" DisplayMemberBinding="{Binding gender}"/>
                                             <GridViewColumn Header="Ngành" Width="Auto" DisplayMemberBinding="{Binding program_name}"/>
-                                            <GridViewColumn Header="Giới Tính" Width="0" DisplayMemberBinding="{Binding program_id}"/>
+                                            <GridViewColumn Header="Ngành" Width="0" DisplayMemberBinding="{Binding program_id}"/>
+
                                             <GridViewColumn Header="Lớp" Width="Auto" DisplayMemberBinding="{Binding class_name}"/>
                                             <GridViewColumn Header="Trạng Thái" Width="Auto" DisplayMemberBinding="{Binding student_status}"/>
                                         </GridView>
@@ -343,7 +346,7 @@
                                                      KeyDown="k_search"
                                                      GotFocus="txtSearchTuyenSinh_GotFocus"
                                                      LostFocus="txtSearchTuyenSinh_LostFocus"
-                                                     TextChanged="txtSearchTuyenSinh_TextChanged"/>
+                                                     TextChanged="txtSearchTuyenSinh_TextChanged" HorizontalAlignment="Left" Margin="0,4,0,4"/>
                                             <TextBlock x:Name="txtPlaceholderTuyenSinh"
 													   Text="Tìm kiếm hồ sơ..."
 													   FontSize="14"

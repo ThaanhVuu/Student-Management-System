@@ -42,7 +42,7 @@ class StudentRepository
         using (var conn = new MySqlConnection(_connectionString))
         {
             conn.Open();
-            const string query = "Select a.admission_id, s.full_name, s.date_of_birth, s.gender, p.program_name, p.program_id, s.class_name, s.student_status from student s inner join program p on s.program_id = p.program_id inner join admission a on a.admission_id = s.admission_id ";
+            const string query = "Select s.admission_id, s.full_name, s.date_of_birth, s.gender, p.program_name, p.program_id, s.class_name, s.student_status from student s inner join program p on s.program_id = p.program_id";
             using (var adapter = new MySqlDataAdapter(query, conn))
             {
                 adapter.Fill(DataTable);
@@ -50,22 +50,6 @@ class StudentRepository
         }
         return DataTable;
     }
-
-    public long getLastestAdmissionId()
-    {
-        long id = 0;
-        using (var conn = new MySqlConnection(_connectionString))
-        {
-            conn.Open();
-            const string query = "SELECT MAX(admission_id) FROM admission";
-            using (var cmd = new MySqlCommand(query, conn))
-            {
-                id = Convert.ToInt64(cmd.ExecuteScalar());
-            }
-        }
-        return id;
-    }
-
 
     public DataTable? SearchStudent(string keyword)
     {
@@ -75,7 +59,7 @@ class StudentRepository
             conn.Open();
             string query = @"
             Select 
-            a.admission_id,
+            s.admission_id,
             s.full_name,
             s.date_of_birth,
             s.gender,
@@ -85,16 +69,15 @@ class StudentRepository
             s.student_status
             from student s
             inner join program p on p.program_id = s.program_id
-            inner join admission a.admission_id = s.admission_id
-            where a.admission_id like @keyword
-            or s.full_name like @keyword
+            inner join admission a on a.admission_id = s.admission_id
+            where s.full_name like @keyword
+            or s.admission_id like @keyword
             or s.date_of_birth like @keyword
-            or p.progam_name like @keyword
+            or p.program_name like @keyword
             or s.student_status like @keyword
             or s.class_name like @keyword
             or s.gender like @keyword
             ";
-
             using (var cmd = new MySqlCommand(query, conn))
             {
                 cmd.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
@@ -106,5 +89,6 @@ class StudentRepository
         }
         return dataTable;
     }
+
 }
 
