@@ -20,7 +20,7 @@ class AdmissionService
         }
     }
 
-    public void RegisterAdmission(Admission admission)
+    public long RegisterAdmission(Admission admission)
     {
         if(admission.FullName == null)
         {
@@ -38,6 +38,8 @@ class AdmissionService
         {
             throw new Exception("Chương trình đào tạo không được để trống");
         }
+        long id = _admissionRepository.AddAdmission(admission);
+        return id;
     }
 
     public void UpdateAdmission(Admission admission) // sua
