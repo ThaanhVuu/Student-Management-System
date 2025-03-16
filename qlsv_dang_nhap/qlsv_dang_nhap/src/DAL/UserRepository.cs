@@ -78,7 +78,7 @@ public class UserRepository
         using var reader = cmd.ExecuteReader();
         return reader.Read() ? new User
         {
-            Id = reader.GetInt32("id"),
+            Id = reader.GetInt64("id"),
             Username = reader.GetString("user_name"),
             Password = reader.GetString("password"),
             Role = reader.GetInt32("role")

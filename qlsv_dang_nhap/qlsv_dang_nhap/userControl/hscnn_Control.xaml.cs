@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using qlsv_dang_nhap.srcMVC.model;
+using qlsv_dang_nhap.userControl;
 
 namespace qlsv_dang_nhap.userControl
 {
@@ -20,9 +22,37 @@ namespace qlsv_dang_nhap.userControl
     /// </summary>
     public partial class hscnn_Control : UserControl
     {
-        public hscnn_Control()
+        public StudentViewModel ViewModel { get; set; }
+
+        public hscnn_Control(StudentMVC student)
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+                ViewModel = new StudentViewModel
+                {
+                    MaSV = student.MaSV ?? "",
+                    HoTen = student.HoTen ?? "",
+                    NgaySinh = student.NgaySinh ?? "",
+                    GioiTinh = student.GioiTinh ?? "",
+                    Nganh = student.Nganh ?? "",
+                };
+                DataContext = ViewModel;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}");
+            }
+        }
+
+        private void btnSuathongSinhien_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Chức năng chưa được triển khai.");
+        }
+
+        private void btnXoathongtinSinhvien_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Chức năng chưa được triển khai.");
         }
     }
 }

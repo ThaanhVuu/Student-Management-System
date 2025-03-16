@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace qlsv_dang_nhap.View
 {
-    /// <summary>
+    /// <summary> ///da xong conflict
     /// Interaction logic for viewAdmin.xaml
     /// </summary>
     public partial class viewAdmin : Window

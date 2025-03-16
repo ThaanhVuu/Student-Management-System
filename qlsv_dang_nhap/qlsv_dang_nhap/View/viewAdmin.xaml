@@ -82,6 +82,7 @@
                                         <TextBox x:Name="dob" 
                                                     Width="225" 
                                                     VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                   
                                     </Border>
                                 </Grid>
                             </Border>

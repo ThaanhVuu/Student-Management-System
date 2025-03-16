@@ -18,23 +18,27 @@
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" >
                     <DockPanel LastChildFill="False">
-                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Width="214">
                             <TextBlock Text="Mã sinh viên:" FontWeight="Bold" VerticalAlignment="Center"
                                        Margin="20,0,0,0"/>
-                            <TextBlock Text="mã_sinh_viên" Foreground="Red" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding MaSV}" Foreground="Red" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                            <Button Height="25" Width="100"
+                            <Button x:Name="btnSuathongtinSinhien"
+                                    Click="btnSuathongSinhien_Click"
+                                Height="25" Width="100"
                                 Content="Sửa thông tin"
                                 Foreground="#3267b1" FontWeight="Bold"
                                 Background="#f6c74d"
                                 />
-                            <Button Height="25" Width="100"
-                                    Content="Xóa thông tin"
-                                    Foreground="White" FontWeight="Bold"
-                                    Background="#ea6a38"
-                                    Margin="5,0,10,0"/>
+                            <Button x:Name="btnXoathongtinSinhvien"
+                                Click="btnXoathongtinSinhvien_Click"
+                                Height="25" Width="100"
+                                Content="Xóa thông tin"
+                                Foreground="White" FontWeight="Bold"
+                                Background="#ea6a38"
+                                Margin="5,0,10,0"/>
                         </StackPanel>
                     </DockPanel>
                 </Border>
@@ -56,7 +60,7 @@
                                 <TextBlock Text="Họ và tên: "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="20,0,0,0"/>
-                                <TextBlock Text="ho_va_ten"
+                                <TextBlock Text="{Binding HoTen}"
                                            FontSize="13"
                                            Margin="10,0,0,0"/>
                             </StackPanel>
@@ -66,7 +70,7 @@
                                 <TextBlock Text="Ngày sinh: "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="10,0,0,0"/>
-                                <TextBlock Text="ngay_sinh"
+                                <TextBlock Text="{Binding NgaySinh}"
                                            FontSize="13" 
                                            Margin="10,0,0,0"/>
                             </StackPanel>
@@ -76,7 +80,7 @@
                                 <TextBlock Text="Giới tính: "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="10,0,0,0"/>
-                                <TextBlock Text="gioi_tinh"
+                                <TextBlock Text="{Binding GioiTinh}"
                                            FontSize="13" 
                                            Margin="10,0,0,0"/>
                             </StackPanel>
@@ -105,7 +109,7 @@
                                 <TextBlock Text="Chuyên ngành:  "
                                            FontSize="13" FontWeight="Bold"
                                            Margin="10,0,0,0"/>
-                                <TextBlock Text="chuyen_nganh" Foreground="Red"
+                                <TextBlock Text="{Binding Nganh}" Foreground="Red"
                                            FontSize="13" 
                                            Margin="10,0,0,0"/>
                             </StackPanel>
@@ -126,12 +130,12 @@
                                                FontSize="13"
                                                FontWeight="Bold"
                                                Margin="20,0,0,0"/>
-                                    <TextBox x:Name="txtPhone"
+                                    <TextBox x:Name="txtPhone" 
                                              Width="150" Height="20"
                                              HorizontalAlignment="Left"
                                              Margin="10,0,0,0"
                                              Foreground="#595d60"
-                                             Text="0338910jqk"/>
+                                             Text="{Binding SDT}"/>
                                 </StackPanel>
                             </Border>
                             <Border Grid.Column="1">
@@ -143,7 +147,7 @@
                                              HorizontalAlignment="Left"
                                              Margin="10,0,0,0"
                                              Foreground="#595d60"
-                                             Text="vulonton@gmail.com"/>
+                                             Text="{Binding Email}"/>
                                 </StackPanel>
                             </Border>
                         </Grid>
