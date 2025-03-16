@@ -82,7 +82,7 @@
                                         <TextBox x:Name="dob" 
                                                     Width="225" 
                                                     VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                                   
+
                                     </Border>
                                 </Grid>
                             </Border>
@@ -278,11 +278,11 @@
                                 <TextBox x:Name="txtMaHoSo" Width="225" Height="20" FontSize="14"/>
                                 <TextBlock Text="Tên Chương Trình Đào Tạo:" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
                                 <TextBox x:Name="txtTenCTDT" Width="225" Height="20" FontSize="14"/>
-
                                 <TextBlock Text="Họ và Tên:" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
                                 <TextBox x:Name="txtHoTen" Width="225" Height="20" FontSize="14" />
 
                                 <TextBlock Text="Ngày Sinh:" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+
                                 <DatePicker x:Name="dpNgaySinh" Width="225" FontSize="14"/>
 
                                 <TextBlock Text="Giới Tính:" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
@@ -310,12 +310,16 @@
                                             FontSize="14" FontWeight="Bold"/>
                                     <Button x:Name="btnDuyetHoSo" Content="Duyệt Hồ Sơ"
                                             Width="100" Margin="5,0,0,0"
+                                            Click="btnDuyetHoSo_Click"
                                             FontSize="14" FontWeight="Bold"/>
+
                                 </StackPanel>
 
                                 <Button x:Name="btnTuChoiHoSo" Content="Từ Chối Hồ Sơ"
                                         Width="210" Margin="0,10,0,0"
+                                        Click="btnTuChoiHoSo_Click"
                                         FontSize="14" FontWeight="Bold"/>
+                                <TextBox x:Name="sts" Width="0" Height="0" FontSize="14"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Border>

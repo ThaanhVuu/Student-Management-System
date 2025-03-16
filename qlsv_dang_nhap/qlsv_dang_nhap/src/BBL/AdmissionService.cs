@@ -92,13 +92,43 @@ class AdmissionService
         }
     }
 
-    public void ApproveAdmission(long admissionId)
+    public void ApproveAdmission(Admission a)
     {
-        _admissionRepository.ApproveAdmission(admissionId);
+        if (a == null)
+        {
+            throw new ArgumentNullException("Đối tượng Admission không tồn tại.");
+        }
+        if (a.StatusAdmission == "Pending")
+        {
+            _admissionRepository.ApproveAdmission(a);
+        }
+        else if(a.StatusAdmission == "Approved")
+        {
+            throw new Exception("Trạng thái hồ sơ đã được duyệt");
+        }
+        else
+        {
+            throw new Exception("Trạng thái hồ sơ đã bị từ chối");
+        }
     }
 
-    public void RejectAdmission(long admissionId)
+    public void RejectAdmission(Admission a)
     {
-        _admissionRepository.RejectAdmission(admissionId);
+        if (a == null)
+        {
+            throw new ArgumentNullException( "Đối tượng Admission không tồn tại.");
+        }
+        if (a.StatusAdmission == "Pending")
+        {
+            _admissionRepository.RejectAdmission(a);
+        }
+        else if (a.StatusAdmission == "Approved")
+        {
+            throw new Exception("Trạng thái hồ sơ đã được duyệt");
+        }
+        else
+        {
+            throw new Exception("Trạng thái hồ sơ đã bị từ chối");
+        }
     }
 }

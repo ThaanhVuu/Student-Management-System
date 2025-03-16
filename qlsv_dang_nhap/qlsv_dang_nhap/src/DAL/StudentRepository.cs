@@ -68,7 +68,7 @@ class StudentRepository
         using (var conn = new MySqlConnection(_connectionString))
         {
             conn.Open();
-            const string query = "Select s.admission_id, s.full_name, s.date_of_birth, s.gender, p.program_name, p.program_id, s.class_name, s.student_status from student s inner join program p on s.program_id = p.program_id";
+            const string query = "Select s.admission_id, s.full_name, s.date_of_birth, s.gender, p.program_name, p.program_id, s.class_name, s.student_status from student s inner join program p on s.program_id = p.program_id order by admission_id desc";
             using (var adapter = new MySqlDataAdapter(query, conn))
             {
                 adapter.Fill(DataTable);

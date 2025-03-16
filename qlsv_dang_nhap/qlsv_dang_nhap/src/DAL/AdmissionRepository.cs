@@ -76,24 +76,56 @@ public class AdmissionRepository
     }
 
     //duyet
-    public void ApproveAdmission(long admissionId)
+    public void ApproveAdmission(Admission admission)
     {
         using var connection = new MySqlConnection(_connectionString);
         connection.Open();
-        const string query = "UPDATE admission SET admission_status = 'Approved' WHERE admission_id = @admission_id";
-        using var command = new MySqlCommand(query, connection);
-        command.Parameters.AddWithValue("@admission_id", admissionId);
-        command.ExecuteNonQuery();
+
+        using var transaction = connection.BeginTransaction(); // Bắt đầu transaction
+
+        try
+        {
+            // 1. Cập nhật trạng thái admission
+            const string updateQuery = "UPDATE admission SET admission_status = 'Approved' WHERE admission_id = @admission_id";
+            using var updateCommand = new MySqlCommand(updateQuery, connection, transaction);
+            updateCommand.Parameters.AddWithValue("@admission_id", admission.AdmissionId);
+            updateCommand.ExecuteNonQuery();
+
+            // 2. Thêm sinh viên vào bảng student
+            const string insertQuery = @"
+            INSERT INTO student 
+                (admission_id, full_name, date_of_birth, gender, program_id, class_name, student_status) 
+            VALUES 
+                (@admission_id, @full_name, @date_of_birth, @gender, @program_id, @class_name, @student_status)";
+
+            using var insertCommand = new MySqlCommand(insertQuery, connection, transaction);
+            insertCommand.Parameters.AddWithValue("@admission_id", admission.AdmissionId);
+            insertCommand.Parameters.AddWithValue("@full_name", admission.FullName);
+            insertCommand.Parameters.AddWithValue("@date_of_birth", admission.DOB);
+            insertCommand.Parameters.AddWithValue("@gender", admission.Gender);
+            insertCommand.Parameters.AddWithValue("@program_id", admission.ProgramId);
+            insertCommand.Parameters.AddWithValue("@class_name", "Lớp A"); // Sửa giá trị hợp lệ
+            insertCommand.Parameters.AddWithValue("@student_status", "Active");
+
+            insertCommand.ExecuteNonQuery();
+
+            transaction.Commit(); // Xác nhận giao dịch
+        }
+        catch (Exception ex)
+        {
+            transaction.Rollback(); // Hủy giao dịch nếu có lỗi
+            throw new Exception($"Lỗi khi phê duyệt hồ sơ: {ex.Message}");
+        }
     }
 
     //tu choi
-    public void RejectAdmission(long admissionId)
+    public void RejectAdmission(Admission admissionId)
     {
         using var connection = new MySqlConnection(_connectionString);
         connection.Open();
         const string query = "UPDATE admission SET admission_status = 'Rejected' WHERE admission_id = @admission_id";
         using var command = new MySqlCommand(query, connection);
-        command.Parameters.AddWithValue("@admission_id", admissionId);
+        command.Parameters.AddWithValue("@admission_id", admissionId.AdmissionId);
         command.ExecuteNonQuery();
     }
 

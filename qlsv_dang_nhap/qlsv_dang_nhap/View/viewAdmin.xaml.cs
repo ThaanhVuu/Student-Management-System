@@ -276,7 +276,7 @@ namespace qlsv_dang_nhap.View
                     Name = admission.FullName,
                     Dob = admission.DOB,
                     gender = admission.Gender,
-                    ProgramId = admission.ProgramId,
+                    ProgramId = (long)admission.ProgramId,
                     ClassName = lop.Text,
                     Status = ((ComboBoxItem)trangthai.SelectedItem).Content.ToString()
                 };
@@ -397,6 +397,7 @@ namespace qlsv_dang_nhap.View
                 // TextBox Tên CTDT và Họ tên
                 txtTenCTDT.Text = selectedRow["program_id"].ToString();
                 txtHoTen.Text = selectedRow["full_name"].ToString();
+                sts.Text = selectedRow["admission_status"].ToString();
 
                 // DatePicker Ngày sinh
                 if (selectedRow["date_of_birth"] != DBNull.Value)
@@ -414,6 +415,7 @@ namespace qlsv_dang_nhap.View
                         break;
                     }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -485,44 +487,61 @@ namespace qlsv_dang_nhap.View
         private void btnDuyetHoSo_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Duyệt hồ sơ tuyển sinh
-            var selectedRow = lvAdmission.SelectedItem as DataRowView;
-            if (selectedRow == null)
-            {
-                MessageBox.Show("Vui lòng chọn hồ sơ!");
-                return;
-            }
-            long idd = Convert.ToInt64(selectedRow["admission_id"]);
             MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn duyệt hồ sơ này?", "Xác nhận",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                _admissionService.ApproveAdmission(idd);
+                try
+                {
+                    var selectedRow = lvAdmission.SelectedItem as DataRowView;
+                    // Tạo đối tượng Admission
+                    var admission = new Admission
+                    {
+                        AdmissionId = long.Parse(txtMaHoSo.Text),
+                        ProgramId = long.Parse(txtTenCTDT.Text),
+                        FullName = txtHoTen.Text.Trim(),
+                        DOB = dpNgaySinh.SelectedDate?.ToString("yyyy-MM-dd"),
+                        Gender = ((ComboBoxItem)cbGioiTinh.SelectedItem)?.Content.ToString(),
+                        StatusAdmission = sts.Text
+                    };
+                    _admissionService.ApproveAdmission(admission);
+                    MessageBox.Show("Đã duyệt hồ sơ!");
+                    LoadData();
+                    ResetForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi duyệt hồ sơ: " + ex.Message);
+                }
 
-                MessageBox.Show("Đã duyệt hồ sơ!");
-                LoadData();
-                ResetForm();
             }
 
         }
 
         private void btnTuChoiHoSo_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Từ chối hồ sơ tuyển sinh
             var selectedRow = lvAdmission.SelectedItem as DataRowView;
-            if (selectedRow == null)
-            {
-                MessageBox.Show("Vui lòng chọn hồ sơ!");
-                return;
-            }
-            long idd = Convert.ToInt64(selectedRow["admission_id"]);
+            // TODO: Từ chối hồ sơ tuyển sinh
             MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn từ chỗi hồ sơ này?", "Xác nhận",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                _admissionService.ApproveAdmission(idd);
-                MessageBox.Show("Đã từ chối hồ sơ!");
-                LoadData();
-                ResetForm();
+                try
+                {
+                    Admission admission = new Admission
+                    {
+                        AdmissionId = long.Parse(txtMaHoSo.Text),
+                        StatusAdmission = sts.Text
+                    };
+                    _admissionService.RejectAdmission(admission);
+                    MessageBox.Show("Đã từ chối hồ sơ");
+                    LoadData();
+                    ResetForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi từ chối hồ sơ: " + ex.Message);
+                }
             }
         }
 
