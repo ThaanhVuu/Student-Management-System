@@ -107,5 +107,10 @@ class StudentRepository
         }
         return dataTable;
     }
+
+    internal static StudentMVC GetStudentById(string loggedInMaSV)
+    {
+        throw new NotImplementedException();
+    }
 }
 

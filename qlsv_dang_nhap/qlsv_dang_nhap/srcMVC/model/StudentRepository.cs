@@ -10,7 +10,7 @@ namespace qlsv_dang_nhap.srcMVC.model
     {
         private static string connectionString = ConfigurationManager.ConnectionStrings["sms"].ConnectionString;
 
-        internal static StudentMVC GetStudentById(string MaSV)
+        internal static StudentMVC GetStudentById(string loggedInMaSV)
         {
             StudentMVC student = null;
             try
@@ -21,7 +21,7 @@ namespace qlsv_dang_nhap.srcMVC.model
                     string query = "SELECT a.admission_id, s.full_name, s.date_of_birth, s.gender, s.class_name, p.program_name,s.student_status FROM student s inner join program p on p.program_id = s.program_id inner join admission a on a.admission_id = s.admission_id WHERE a.admission_id = @MaSV";
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@MaSV", MaSV);
+                        cmd.Parameters.AddWithValue("@MaSV", loggedInMaSV);
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -39,7 +39,7 @@ namespace qlsv_dang_nhap.srcMVC.model
                             }
                             else
                             {
-                                throw new Exception($"Không tìm thấy sinh viên với MaSV = {MaSV}");
+                                throw new Exception($"Không tìm thấy sinh viên với MaSV = {loggedInMaSV}");
                             }
                         }
                     }

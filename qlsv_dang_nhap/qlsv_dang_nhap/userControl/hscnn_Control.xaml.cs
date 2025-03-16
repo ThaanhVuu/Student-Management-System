@@ -34,8 +34,6 @@ namespace qlsv_dang_nhap.userControl
                 NgaySinh = student.NgaySinh ?? "",
                 GioiTinh = student.GioiTinh ?? "",
                 Nganh = student.Nganh ?? "",
-                SDT = student.SDT ?? "",
-                Email = student.Email ?? ""
             };
             DataContext = ViewModel;
         }

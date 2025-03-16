@@ -73,14 +73,15 @@ namespace qlsv_dang_nhap.View
                 }
                 else
                 {
-                    StudentMVC loggedInStudent = StudentRepository.GetStudentById(userInput);
+                    //StudentMVC loggedInStudent = StudentRepository.GetStudentById(userInput);
 
-                    if (loggedInStudent == null)
-                    {
-                        MessageBox.Show("Không tìm thấy thông tin sinh viên!");
-                        return;
-                    }
-                    StudentMVC.LoggedInMaSV = loggedInStudent.MaSV;
+                    //if (loggedInStudent == null)
+                    //{
+                    //    MessageBox.Show("Không tìm thấy thông tin sinh viên!");
+                    //    return;
+                    //}
+                    //StudentMVC.LoggedInMaSV = loggedInStudent.MaSV;
+
                     viewTrang_chinh user = new viewTrang_chinh();
                     user.Show();
                     this.Close();
