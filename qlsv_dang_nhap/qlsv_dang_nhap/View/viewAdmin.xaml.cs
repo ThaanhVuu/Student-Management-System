@@ -281,8 +281,7 @@ namespace qlsv_dang_nhap.View
 
                 _studentService.AddStudent(student);
                 MessageBox.Show("Thêm hồ sơ sinh viên thành công!");
-                LoadDataStudent(); StudentResetForm();
-
+                LoadDataStudent();
             }
             catch (Exception ex)
             {
