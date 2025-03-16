@@ -11,6 +11,7 @@ namespace qlsv_dang_nhap.View
     /// </summary>
     public partial class viewAdmin : Window
     {
+        #region init
         string connectionString = ConfigurationManager.ConnectionStrings["SMS"].ConnectionString;
         private AdmissionService _admissionService;
         private ProgramService _programService;
@@ -121,6 +122,7 @@ namespace qlsv_dang_nhap.View
                 MessageBox.Show($"Lỗi khi tải danh sách sinh viên: {ex.Message}");
             }
         }
+        #endregion
 
         #region Common Search Controls
         // Quản lý sinh viên
@@ -219,7 +221,7 @@ namespace qlsv_dang_nhap.View
                 {
                     if (item.Content.ToString() == gender)
                     {
-                        cbGioiTinh.SelectedItem = item;
+                        gioitinh.SelectedItem = item;
                         break;
                     }
                 }
@@ -270,7 +272,7 @@ namespace qlsv_dang_nhap.View
                 // Tạo Student từ thông tin Admission
                 var student = new Student
                 {
-                    Id =(long)admissionID,
+                    Id = (long)admissionID,
                     Name = admission.FullName,
                     Dob = admission.DOB,
                     gender = admission.Gender,
@@ -281,7 +283,7 @@ namespace qlsv_dang_nhap.View
 
                 _studentService.AddStudent(student);
                 MessageBox.Show("Thêm hồ sơ sinh viên thành công!");
-                LoadDataStudent();
+                LoadDataStudent(); StudentResetForm();
             }
             catch (Exception ex)
             {
@@ -291,19 +293,41 @@ namespace qlsv_dang_nhap.View
 
         private void btnSuaSinhVien_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Sửa thông tin sinh viên
-            MessageBox.Show("Chức năng sửa sinh viên được chọn.");
-        }
-
-        private void btnXoaSinhVien_Click(object sender, RoutedEventArgs e)
-        {
-            // TODO: Xóa sinh viên
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa sinh viên này?", "Xác nhận",
-                                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                // TODO: Thực hiện xóa dữ liệu
-                MessageBox.Show("Đã xóa sinh viên thành công!");
+               
+                // Lấy giá trị gender từ ComboBox
+                string gender = ((ComboBoxItem)gioitinh.SelectedItem).Content.ToString();
+
+                Student student = new Student
+                {
+                    Id = long.Parse(msv.Text),
+                    Name = hoten.Text,
+                    Dob = dob.Text,
+                    gender = gender, // Sử dụng giá trị đã kiểm tra
+                    ProgramId = long.Parse(((ComboBoxItem)cbProgram.SelectedItem).Content.ToString()),
+                    ClassName = lop.Text,
+                    Status = ((ComboBoxItem)trangthai.SelectedItem).Content.ToString(),
+                };
+                _studentService.UpdateStudent(student);
+
+                Admission admission = new Admission
+                {
+                    AdmissionId = long.Parse(msv.Text),
+                    FullName = hoten.Text,
+                    DOB = dob.Text,
+                    Gender = gender, // Sử dụng giá trị đã kiểm tra
+                    ProgramId = long.Parse(((ComboBoxItem)cbProgram.SelectedItem).Content.ToString()),
+                };
+                _admissionService.UpdateAdmission(admission);
+
+                MessageBox.Show("Sửa hồ sơ thành công!");
+                LoadDataStudent();
+                StudentResetForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi sửa hồ sơ: {ex.ToString()}"); // Hiển thị chi tiết lỗi
             }
         }
 
@@ -436,13 +460,16 @@ namespace qlsv_dang_nhap.View
 
             long id2 = long.Parse(txtMaHoSo.Text);
             // TODO: Xóa hồ sơ tuyển sinh
-            MessageBoxResult result = MessageBox.Show($"Bạn có chắc chắn muốn xóa hồ sơ có mã hồ sơ là {id2}?", "Xác nhận",
+            MessageBoxResult result = MessageBox.Show($"Bạn có chắc chắn muốn xóa hồ sơ tuyển sinh và hồ sơ sinh viên {id2} ?", "Xác nhận",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 // TODO: Thực hiện xóa dữ liệu
                 try
                 {
+                    Student s = new Student();
+                    s.Id = id2;
+                    _studentService.DeleteStudent(s);
                     _admissionService.DeleteAdmission(id2);
                     MessageBox.Show("Đã xóa hồ sơ thành công!");
                     LoadData();
@@ -450,7 +477,7 @@ namespace qlsv_dang_nhap.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Lỗi khi xóa hồ sơ: {ex.Message}");
+                    MessageBox.Show($"Lỗi khi xóa hồ sơ tuyển sinh(sinh viên): {ex.Message}");
                 }
             }
         }

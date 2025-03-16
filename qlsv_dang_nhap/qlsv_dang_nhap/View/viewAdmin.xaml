@@ -44,7 +44,7 @@
                                                FontSize="14" FontFamily="Arial" FontWeight="Bold"
                                                Margin="10,0,0,0"/>
                                     <TextBox x:Name="msv"
-                                               FontSize="14" FontFamily="Arial" Foreground="Red"/>
+                                               FontSize="14" FontFamily="Arial" Width="132" Height="21"/>
                                 </StackPanel>
                             </Border>
                             <!--ho_va_ten-->

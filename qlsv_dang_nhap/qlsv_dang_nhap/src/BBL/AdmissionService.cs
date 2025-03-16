@@ -16,7 +16,7 @@ class AdmissionService
         }
         catch (Exception e)
         {
-            throw new Exception("Lấy ds: " + e.Message);
+            throw new Exception("Lấy danh sách tuyển sinh lỗi: " + e.Message);
         }
     }
 
@@ -69,6 +69,10 @@ class AdmissionService
 
     public void DeleteAdmission(long admissionid)
     {
+        if(admissionid == null)
+        {
+            throw new Exception("Vui lòng chọn sinh viên cần xóa");
+        }
         _admissionRepository.DeleteAdmission(admissionid);
     }
 
