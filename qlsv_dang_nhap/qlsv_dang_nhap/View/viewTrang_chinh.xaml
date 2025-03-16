@@ -290,7 +290,7 @@
                             </StackPanel>
                         </Button>
                         <!--button_thong_tin_ca_nhan-->
-                        <Button x:Name="thong_tin_ca_nhan"  Click="TTCN_click" 
+                        <Button x:Name="thong_tin_ca_nhan"
                                 Height="30" Width="140"
                                 Margin="5,0,0,0"
                                 Background="Transparent" BorderBrush="Transparent">
@@ -361,7 +361,9 @@
                         </Button>
                     </StackPanel>
                     <!--button_thoat-->
-                    <Button x:Name="thoat" DockPanel.Dock="Right"  
+                    <Button x:Name="thoat"
+                            Click="thoat_Click"
+                            DockPanel.Dock="Right"  
                             Height="30" Width="110"
                             Background="Transparent" BorderBrush="Transparent">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

@@ -189,11 +189,10 @@ namespace qlsv_dang_nhap.View
             }
 
             // Lấy thông tin sinh viên từ Repository
-            StudentMVC student = StudentRepository.GetStudentById(loggedInMaSV);
-
+            StudentMVC student = StudentRepositoryMVC.GetStudentById(loggedInMaSV);
             if (student != null)
             {
-                ContentDisplay.Content = new hscnn_Control(student); // Truyền đối tượng student
+                ContentDisplay.Content = new qlsv_dang_nhap.userControl.hscnn_Control(student); // Truyền đối tượng student
             }
             else
             {
@@ -207,6 +206,16 @@ namespace qlsv_dang_nhap.View
         private void dang_ky_click(object sender, RoutedEventArgs e)
         {
             ContentDisplay.Content = new qlsv_dang_nhap.userControl.dkControl();
+        }
+
+        private void thoat_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn thoát?", "Xác nhận thoát", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }

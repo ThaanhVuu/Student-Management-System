@@ -26,16 +26,33 @@ namespace qlsv_dang_nhap.userControl
 
         public hscnn_Control(StudentMVC student)
         {
-            InitializeComponent();
-            ViewModel = new StudentViewModel
+            try
             {
-                MaSV = student.MaSV ?? "",
-                HoTen = student.HoTen ?? "",
-                NgaySinh = student.NgaySinh ?? "",
-                GioiTinh = student.GioiTinh ?? "",
-                Nganh = student.Nganh ?? "",
-            };
-            DataContext = ViewModel;
+                InitializeComponent();
+                ViewModel = new StudentViewModel
+                {
+                    MaSV = student.MaSV ?? "",
+                    HoTen = student.HoTen ?? "",
+                    NgaySinh = student.NgaySinh ?? "",
+                    GioiTinh = student.GioiTinh ?? "",
+                    Nganh = student.Nganh ?? "",
+                };
+                DataContext = ViewModel;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}");
+            }
+        }
+
+        private void btnSuathongSinhien_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Coming soon!");
+        }
+
+        private void btnXoathongtinSinhvien_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Coming soon!");
         }
     }
 }

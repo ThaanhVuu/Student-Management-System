@@ -64,7 +64,7 @@ namespace qlsv_dang_nhap.View
             try
             {
                 _user = _userService.Authenticate(userInput, passInput);
-                MessageBox.Show($"Đăng nhập thành công, chào mừng {_user.Username}");
+                //MessageBox.Show($"Đăng nhập thành công, chào mừng {_user.Username}");
                 if (_user.Role == 1)
                 {
                     viewAdmin admin = new viewAdmin();
@@ -73,15 +73,7 @@ namespace qlsv_dang_nhap.View
                 }
                 else
                 {
-                    //StudentMVC loggedInStudent = StudentRepository.GetStudentById(userInput);
-
-                    //if (loggedInStudent == null)
-                    //{
-                    //    MessageBox.Show("Không tìm thấy thông tin sinh viên!");
-                    //    return;
-                    //}
-                    //StudentMVC.LoggedInMaSV = loggedInStudent.MaSV;
-
+                    StudentMVC.LoggedInMaSV = userInput; // maSV là mã sinh viên đăng nhập thành công
                     viewTrang_chinh user = new viewTrang_chinh();
                     user.Show();
                     this.Close();
@@ -99,6 +91,12 @@ namespace qlsv_dang_nhap.View
             {
                 btnLogin_Click(sender, e);
             }
+        }
+
+        private void btnquenmatkhau_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Vui lòng liên hệ Admin để được cấp lại mật khẩu!");
+            return;
         }
     }
 }

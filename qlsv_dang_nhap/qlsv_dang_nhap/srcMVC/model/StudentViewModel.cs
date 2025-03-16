@@ -41,18 +41,6 @@ public class StudentViewModel : INotifyPropertyChanged
         set { _nganh = value; OnPropertyChanged(nameof(Nganh)); }
     }
 
-    public string? SDT
-    {
-        get => _sdt;
-        set { _sdt = value; OnPropertyChanged(nameof(SDT)); }
-    }
-
-    public string? Email
-    {
-        get => _email;
-        set { _email = value; OnPropertyChanged(nameof(Email)); }
-    }
-
     public event PropertyChangedEventHandler? PropertyChanged;
     protected void OnPropertyChanged(string propertyName)
     {

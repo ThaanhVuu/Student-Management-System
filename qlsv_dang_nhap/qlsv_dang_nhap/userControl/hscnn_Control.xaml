@@ -18,23 +18,27 @@
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" >
                     <DockPanel LastChildFill="False">
-                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Width="214">
                             <TextBlock Text="Mã sinh viên:" FontWeight="Bold" VerticalAlignment="Center"
                                        Margin="20,0,0,0"/>
                             <TextBlock Text="{Binding MaSV}" Foreground="Red" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                            <Button Height="25" Width="100"
+                            <Button x:Name="btnSuathongtinSinhien"
+                                    Click="btnSuathongSinhien_Click"
+                                Height="25" Width="100"
                                 Content="Sửa thông tin"
                                 Foreground="#3267b1" FontWeight="Bold"
                                 Background="#f6c74d"
                                 />
-                            <Button Height="25" Width="100"
-                                    Content="Xóa thông tin"
-                                    Foreground="White" FontWeight="Bold"
-                                    Background="#ea6a38"
-                                    Margin="5,0,10,0"/>
+                            <Button x:Name="btnXoathongtinSinhvien"
+                                Click="btnXoathongtinSinhvien_Click"
+                                Height="25" Width="100"
+                                Content="Xóa thông tin"
+                                Foreground="White" FontWeight="Bold"
+                                Background="#ea6a38"
+                                Margin="5,0,10,0"/>
                         </StackPanel>
                     </DockPanel>
                 </Border>

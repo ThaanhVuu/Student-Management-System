@@ -6,7 +6,7 @@ using System.Configuration;
 
 namespace qlsv_dang_nhap.srcMVC.model
 {
-    public class StudentRepository
+    public class StudentRepositoryMVC
     {
         private static string connectionString = ConfigurationManager.ConnectionStrings["sms"].ConnectionString;
 
@@ -18,7 +18,7 @@ namespace qlsv_dang_nhap.srcMVC.model
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT a.admission_id, s.full_name, s.date_of_birth, s.gender, s.class_name, p.program_name,s.student_status FROM student s inner join program p on p.program_id = s.program_id inner join admission a on a.admission_id = s.admission_id WHERE a.admission_id = @MaSV";
+                    string query = "SELECT student.admission_id, full_name, date_of_birth, gender, class_name, program_name, student_status FROM student inner join program on program.program_id = student.program_id WHERE student.admission_id = @MaSV";
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@MaSV", loggedInMaSV);
@@ -30,7 +30,9 @@ namespace qlsv_dang_nhap.srcMVC.model
                                 {
                                     MaSV = reader["admission_id"]?.ToString(),
                                     HoTen = reader["full_name"]?.ToString(),
-                                    NgaySinh = reader["date_of_birth"]?.ToString(),
+                                    NgaySinh = DateTime.TryParse(reader["date_of_birth"]?.ToString(), out DateTime ngaySinh)
+                                        ? ngaySinh.ToString("yyyy/MM/dd")
+                                        : null,
                                     GioiTinh = reader["gender"]?.ToString(),
                                     Lop = reader["class_name"]?.ToString(),
                                     Nganh = reader["program_name"]?.ToString(),

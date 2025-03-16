@@ -210,13 +210,17 @@
                                 Margin="0,10,0,0">
                         <Image Source="/Images/icons8-forgot-password-26.png"
                                Width="12" Height="12"/>
-                        <TextBlock Text="[ Quên mật khẩu? ]"
+                        <Button Content="[ Quên mật khẩu? ]"
+                               x:Name="btnquenmatkhau"
+                               Click="btnquenmatkhau_Click"
+                               BorderThickness="0"
+                               Background="Transparent"
                                FontSize="12"
                                FontWeight="Bold"
                                Cursor="Hand"
                                FontFamily="Montserrat">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
+                            <Button.Style>
+                                <Style TargetType="Button">
                                     <Setter Property="Foreground" Value="#124168"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
@@ -224,8 +228,8 @@
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                            </Button.Style> 
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
