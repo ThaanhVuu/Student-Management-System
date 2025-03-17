@@ -3,9 +3,9 @@
 class StudentService
 {
     private readonly StudentRepository _studentRepository;
-    public StudentService(StudentRepository studentRepository)
+    public StudentService()
     {
-        _studentRepository = studentRepository;
+        _studentRepository = new StudentRepository();
     }
 
     public DataTable getAllStudent()

@@ -4,7 +4,7 @@ using System.Data;
 public class AdmissionRepository
 {
     private readonly string _connectionString;
-    public AdmissionRepository(string connectionString)
+    public AdmissionRepository()
     {
         _connectionString = ConfigurationManager.ConnectionStrings["SMS"].ConnectionString;
     }

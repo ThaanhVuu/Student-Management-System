@@ -2,9 +2,9 @@
 class AdmissionService
 {
     private readonly AdmissionRepository _admissionRepository;
-    public AdmissionService(AdmissionRepository admissionRepository)
+    public AdmissionService()
     {
-        _admissionRepository = admissionRepository;
+        _admissionRepository = new AdmissionRepository();
     }
 
     public DataTable? GetAllAdmissions() // lay ds

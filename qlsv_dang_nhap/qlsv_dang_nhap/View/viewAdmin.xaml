@@ -613,7 +613,7 @@
 
 
             <!-- Tab Môn học -->
-            <TabItem>
+            <TabItem x:Name="CourseTabb">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/icon_admin/icons8-elective-64.png"
@@ -642,7 +642,7 @@
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left"
                                             Margin="10,0,0,0" Orientation="Horizontal">
                                     <TextBlock Text="Mã Môn Học:" FontSize="14" FontWeight="Bold"/>
-                                    <TextBox Width="200" Height="22" Margin="20,0,0,0" FontSize="14"/>
+                                    <TextBox x:Name="courseId" Width="200" Height="22" Margin="20,0,0,0" FontSize="14"/>
                                 </StackPanel>
                             </Border>
 
@@ -650,15 +650,15 @@
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left"
                                             Margin="10,0,0,0" Orientation="Horizontal">
                                     <TextBlock Text="Tên Môn Học:" FontSize="14" FontWeight="Bold"/>
-                                    <TextBox Width="200" Height="22" Margin="18,0,0,0" FontSize="14"/>
+                                    <TextBox x:Name="txtNameCourse" Width="200" Height="22" Margin="18,0,0,0" FontSize="14"/>
                                 </StackPanel>
                             </Border>
 
                             <Border Grid.Row="2">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left"
                                             Margin="10,0,0,0" Orientation="Horizontal">
-                                    <TextBlock Text="Mã Môn Học:" FontSize="14" FontWeight="Bold"/>
-                                    <TextBox Width="200" Height="22" Margin="20,0,0,0" FontSize="14"/>
+                                    <TextBlock Text="Số tín chỉ:" FontSize="14" FontWeight="Bold"/>
+                                    <TextBox x:Name="creditCourse" Width="200" Height="22" Margin="20,0,0,0" FontSize="14"/>
                                 </StackPanel>
                             </Border>
 
@@ -681,12 +681,12 @@
 
                     <!-- Danh sách môn học -->
                     <Border Grid.Column="1">
-                        <ListView Name="lvMonHoc" SelectionMode="Single">
+                        <ListView Name="lvMonHoc" SelectionMode="Single" SelectionChanged="courseSelection">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Mã môn học" Width="auto" DisplayMemberBinding="{Binding MaMH}"/>
-                                    <GridViewColumn Header="Tên môn học" Width="auto" DisplayMemberBinding="{Binding TenMH}"/>
-                                    <GridViewColumn Header="Số tín chỉ" Width="auto" DisplayMemberBinding="{Binding SoTinChi}"/>
+                                    <GridViewColumn Header="Mã môn học" Width="auto" DisplayMemberBinding="{Binding course_id}"/>
+                                    <GridViewColumn Header="Tên môn học" Width="auto" DisplayMemberBinding="{Binding course_name}"/>
+                                    <GridViewColumn Header="Số tín chỉ" Width="auto" DisplayMemberBinding="{Binding credit}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>

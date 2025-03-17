@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,20 +11,18 @@ namespace qlsv_dang_nhap.View
     public partial class viewAdmin : Window
     {
         #region init
-        string connectionString = ConfigurationManager.ConnectionStrings["SMS"].ConnectionString;
         private AdmissionService _admissionService;
         private ProgramService _programService;
         private StudentService _studentService;
+        private CourseService _courseService;
         string keyword;
         public viewAdmin()
         {
             InitializeComponent();
-            var admissionRepository = new AdmissionRepository(connectionString);
-            var programRepository = new ProgramRepository(connectionString);
-            var studentRepository = new StudentRepository();
-            _admissionService = new AdmissionService(admissionRepository);
-            _programService = new ProgramService(programRepository);
-            _studentService = new StudentService(studentRepository);
+            _admissionService = new AdmissionService();
+            _programService = new ProgramService();
+            _studentService = new StudentService();
+            _courseService = new CourseService();
         }
         //load dung ds
         private void tabSelection(object sender, SelectionChangedEventArgs e)
@@ -55,6 +52,9 @@ namespace qlsv_dang_nhap.View
                 else if (selectedTab.Name == nameof(StudentTabb))
                 {
                     LoadDataStudent();
+                }else if(selectedTab.Name == nameof(CourseTabb))
+                {
+                    LoadCourse();
                 }
 
             }
@@ -121,6 +121,17 @@ namespace qlsv_dang_nhap.View
             {
                 MessageBox.Show($"Lỗi khi tải danh sách sinh viên: {ex.Message}");
             }
+        }
+
+        private void LoadCourse()
+        {
+            var dt = _courseService.getCourse();
+            lvMonHoc.ItemsSource = dt.DefaultView;
+            //courseId.IsReadOnly = true;
+            //lvMonHoc.ReadOnly = false;
+            //lvMonHoc.AllowUserToAddRows = true;
+            //lvMonHoc.AllowUserToDeleteRows = true;
+            //lvMonHoc.EditMode = DataGridEditMode.EditOnEnter;
         }
         #endregion
 
@@ -757,16 +768,61 @@ namespace qlsv_dang_nhap.View
         #endregion
 
         #region Tab Môn học
+        private void CourseResetForm()
+        {
+            txtNameCourse.Text = string.Empty;
+            creditCourse.Text = string.Empty;
+        }
+
+        private void courseSelection(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedRow = lvMonHoc.SelectedItem as DataRowView;
+            if (selectedRow == null) return;
+            try
+            {
+                txtNameCourse.Text = selectedRow.Row["course_name"].ToString();
+                courseId.Text = selectedRow["course_id"].ToString();
+                creditCourse.Text = selectedRow["credit"].ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi chọn môn học"); 
+            }
+        }
+
         private void btnThemMH_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Thêm mới môn học
-            MessageBox.Show("Chức năng thêm môn học được chọn.");
+            int a = Convert.ToInt32(creditCourse.Text);
+            try
+            {
+                var dt = _courseService.getCourse();
+                _courseService.AddCourse(dt, txtNameCourse.Text, a);
+                _courseService.saverCourse(dt);
+                MessageBox.Show("Thêm môn học thành công");
+                LoadCourse(); CourseResetForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm môn học"+ex.Message);
+            }
         }
 
         private void btnSuaMH_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Sửa thông tin môn học
-            MessageBox.Show("Chức năng sửa môn học được chọn.");
+            try
+            {
+                var dt = _courseService.getCourse();
+                _courseService.EditCourse(dt,Convert.ToInt32(courseId.Text),txtNameCourse.Text,Convert.ToInt32(creditCourse.Text));
+                _courseService.saverCourse(dt);
+                MessageBox.Show("Sửa môn học thành công");
+                LoadCourse(); CourseResetForm() ;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi sửa môn học" + ex.Message);
+            }
         }
 
         private void btnXoaMH_Click(object sender, RoutedEventArgs e)
@@ -777,7 +833,18 @@ namespace qlsv_dang_nhap.View
             if (result == MessageBoxResult.Yes)
             {
                 // TODO: Thực hiện xóa dữ liệu
-                MessageBox.Show("Đã xóa môn học thành công!");
+                try
+                {
+                    var dt = _courseService.getCourse();
+                    _courseService.DeleteCourse(dt, Convert.ToInt32(courseId.Text));
+                    _courseService.saverCourse(dt);
+                    MessageBox.Show("Đã xóa môn học thành công!");
+                    LoadCourse(); ResetForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa môn học" + ex.Message);
+                }
             }
         }
 

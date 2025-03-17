@@ -3,9 +3,9 @@ using System.Windows;
 public class ProgramService
 {
     private readonly ProgramRepository _programReposity;
-    public ProgramService(ProgramRepository programReposity)
+    public ProgramService()
     {
-        _programReposity = programReposity;
+        _programReposity = new ProgramRepository();
     }
 
     public DataTable GetAllPrograms()

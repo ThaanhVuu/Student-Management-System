@@ -5,7 +5,7 @@ public class ProgramRepository
 {
     private string _connectionString;
 
-    public ProgramRepository(string connectionString)
+    public ProgramRepository()
     {
         _connectionString = ConfigurationManager.ConnectionStrings["SMS"].ConnectionString;
     }
