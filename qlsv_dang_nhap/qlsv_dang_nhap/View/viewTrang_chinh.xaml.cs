@@ -27,6 +27,10 @@ namespace qlsv_dang_nhap.View
     public partial class viewTrang_chinh : Window
     {
         private Popup currentPopup;
+
+        string loggedInMaSV = StudentMVC.LoggedInMaSV;
+
+            
         public viewTrang_chinh()
         {
             InitializeComponent();
@@ -41,6 +45,12 @@ namespace qlsv_dang_nhap.View
             danh_gia.Click += Button_Click;
             tai_chinh.Click += Button_Click;
             dich_vu.Click += Button_Click;
+
+            // Kiểm tra null hoặc rỗng
+            if (!string.IsNullOrEmpty(loggedInMaSV))
+            {
+                dang_nhap.Visibility = Visibility.Collapsed;
+            }
 
         }
         //hyperlink
