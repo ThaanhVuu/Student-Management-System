@@ -42,6 +42,13 @@ namespace qlsv_dang_nhap.View
             tai_chinh.Click += Button_Click;
             dich_vu.Click += Button_Click;
 
+
+            string loggedInMaSV = StudentMVC.LoggedInMaSV;
+            if (!string.IsNullOrEmpty(loggedInMaSV))
+            {
+                dang_nhap.Visibility = Visibility.Collapsed;
+            }
+
         }
         //hyperlink
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
