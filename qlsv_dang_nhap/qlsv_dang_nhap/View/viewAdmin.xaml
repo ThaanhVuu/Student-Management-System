@@ -181,11 +181,16 @@
                     </Border>
                     <Border Grid.Column="1">
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="304*"/>
+                                <ColumnDefinition Width="13*"/>
+                                <ColumnDefinition Width="507*"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="55"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Border Grid.Row="0">
+                            <Border Grid.Row="0" Grid.ColumnSpan="3">
                                 <StackPanel Height="35" Width="300"
                                             Orientation="Horizontal" HorizontalAlignment="Right"
                                             VerticalAlignment="Center">
@@ -233,7 +238,7 @@
                                 </StackPanel>
                             </Border>
                             <!--sinh_vienListview-->
-                            <Border Grid.Row="1">
+                            <Border Grid.Row="1" Grid.ColumnSpan="3">
                                 <ListView x:Name = "dssv"
                                           SelectionChanged="dssvSelection"
                                     HorizontalAlignment="Stretch"
@@ -494,7 +499,7 @@
 
 
             <!-- Tab Chi tiết CTDT -->
-            <TabItem>
+            <TabItem x:Name="CPTabb">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/icon_admin/icons8-book-50.png"
@@ -522,7 +527,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Tên CTDT:" FontSize="14" FontWeight="Bold"
                                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <TextBox Width="150" Height="22" Margin="10,0,0,0"/>
+                                    <TextBox x:Name="tenCTDT" Width="150" Height="22" Margin="10,0,0,0"/>
                                 </StackPanel>
                             </Border>
                             <!-- Danh sách môn học -->
@@ -595,13 +600,14 @@
                             </Border>
                             <!-- Danh sách môn học của CTDT -->
                             <Border Grid.Row="1">
-                                <ListView HorizontalAlignment="Stretch"
+                                <ListView x:Name="lvCP"
+                                    HorizontalAlignment="Stretch"
                                           VerticalAlignment="Stretch">
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Mã MH" Width="Auto" DisplayMemberBinding="{Binding MaMH}"/>
-                                            <GridViewColumn Header="Tên môn học" Width="Auto" DisplayMemberBinding="{Binding TenMH}"/>
-                                            <GridViewColumn Header="Số tín chỉ" Width="Auto" DisplayMemberBinding="{Binding SoTinChi}"/>
+                                            <GridViewColumn Header="Mã MH" Width="Auto" DisplayMemberBinding="{Binding course_id}"/>
+                                            <GridViewColumn Header="Mã MH" Width="0" DisplayMemberBinding="{Binding program_id}"/>
+                                            <GridViewColumn Header="Tên môn học" Width="Auto" DisplayMemberBinding="{Binding course_name}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

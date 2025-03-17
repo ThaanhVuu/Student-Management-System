@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace qlsv_dang_nhap.View
@@ -15,6 +16,7 @@ namespace qlsv_dang_nhap.View
         private ProgramService _programService;
         private StudentService _studentService;
         private CourseService _courseService;
+        private CourseProgramService _CPService;
         string keyword;
         public viewAdmin()
         {
@@ -23,6 +25,7 @@ namespace qlsv_dang_nhap.View
             _programService = new ProgramService();
             _studentService = new StudentService();
             _courseService = new CourseService();
+            _CPService = new CourseProgramService();
         }
         //load dung ds
         private void tabSelection(object sender, SelectionChangedEventArgs e)
@@ -55,6 +58,9 @@ namespace qlsv_dang_nhap.View
                 }else if(selectedTab.Name == nameof(CourseTabb))
                 {
                     LoadCourse();
+                }else if(selectedTab.Name == nameof(CPTabb))
+                {
+                    LoadCourseProgram();
                 }
 
             }
@@ -92,6 +98,12 @@ namespace qlsv_dang_nhap.View
             txtMaHoSo.IsReadOnly = true;
         }
 
+        private void LoadCourseProgram()
+        {
+            var dt = new DataTable();
+            dt = _CPService.getAllCourseProgram();
+            lvCP.ItemsSource = dt.DefaultView;
+        }
         private void LoadDataProgram()
         {
             try
