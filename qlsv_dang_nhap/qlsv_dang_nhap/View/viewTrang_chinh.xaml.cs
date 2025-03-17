@@ -16,7 +16,7 @@ using System.Windows.Threading;
 using System.Windows.Controls.Primitives;
 using System.Diagnostics;
 using System.Windows.Navigation;
-using qlsv_dang_nhap.srcMVC.model;
+using qlsv_dang_nhap.srcMVC;
 using qlsv_dang_nhap.userControl;
 
 namespace qlsv_dang_nhap.View

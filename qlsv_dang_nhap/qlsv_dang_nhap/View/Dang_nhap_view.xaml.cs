@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Configuration;
 using qlsv_dang_nhap.userControl;
-using qlsv_dang_nhap.srcMVC.model;
+using qlsv_dang_nhap.srcMVC;
 
 namespace qlsv_dang_nhap.View
 {

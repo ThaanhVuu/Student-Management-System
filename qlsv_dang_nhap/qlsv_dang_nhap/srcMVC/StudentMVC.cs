@@ -1,5 +1,5 @@
 ﻿// Student.cs
-namespace qlsv_dang_nhap.srcMVC.model
+namespace qlsv_dang_nhap.srcMVC
 {
     public class StudentMVC
     {
