@@ -9,6 +9,6 @@ namespace qlsv_dang_nhap
     /// </summary>
     public partial class App : Application
     {
-    }
 
+    }
 }

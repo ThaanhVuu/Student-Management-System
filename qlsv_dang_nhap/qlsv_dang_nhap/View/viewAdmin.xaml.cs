@@ -58,9 +58,6 @@ namespace qlsv_dang_nhap.View
                 }else if(selectedTab.Name == nameof(CourseTabb))
                 {
                     LoadCourse();
-                }else if(selectedTab.Name == nameof(CPTabb))
-                {
-                    LoadCourseProgram();
                 }
 
             }
@@ -98,12 +95,7 @@ namespace qlsv_dang_nhap.View
             txtMaHoSo.IsReadOnly = true;
         }
 
-        private void LoadCourseProgram()
-        {
-            var dt = new DataTable();
-            dt = _CPService.getAllCourseProgram();
-            lvCP.ItemsSource = dt.DefaultView;
-        }
+       
         private void LoadDataProgram()
         {
             try
@@ -740,10 +732,20 @@ namespace qlsv_dang_nhap.View
         }
         private void btnChiTiet_Click(object sender, RoutedEventArgs e)
         {
-            // Sử dụng trực tiếp TabControlMain đã đặt tên thay vì FindName
-            if (TabControlMain != null)
+            if (string.IsNullOrEmpty(mct.Text))
             {
-                TabControlMain.SelectedIndex = 3; // Chuyển đến tab Chi tiết CTĐT (index 3)
+                MessageBox.Show("Vui lòng chọn CTDT");
+            }
+            else
+            {
+                // Sử dụng trực tiếp TabControlMain đã đặt tên thay vì FindName
+                if (TabControlMain != null)
+                {
+                    TabControlMain.SelectedIndex = 3; // Chuyển đến tab Chi tiết CTĐT (index 3)
+                    LoadCourseProgram();
+                    tenCTDT.IsEnabled = false;
+                    tenCTDT.Text = mct.Text;
+                }
             }
         }
 
@@ -764,6 +766,15 @@ namespace qlsv_dang_nhap.View
         {
             // TODO: Thêm môn học vào CTĐT
             MessageBox.Show("Chức năng thêm môn học vào CTĐT được chọn.");
+        }
+
+        private void LoadCourseProgram()
+        {
+            var cs = new CourseProgram();
+            cs.program_id = Convert.ToInt64(mct.Text);
+            var dt = new DataTable();
+            dt = _CPService.getAllCourseProgram(cs);
+            lvCP.ItemsSource = dt.DefaultView;
         }
 
         private void btnXoaMonHoc_Click(object sender, RoutedEventArgs e)

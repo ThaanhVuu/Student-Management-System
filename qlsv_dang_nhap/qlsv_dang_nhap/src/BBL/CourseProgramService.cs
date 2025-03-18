@@ -14,9 +14,9 @@ class CourseProgramService
         _repo = new CourseProgramRepository();
     }
 
-    public DataTable getAllCourseProgram()
+    public DataTable getAllCourseProgram(CourseProgram cs)
     {
-        return _repo.getall();
+        return _repo.getall(cs);
     }
 }
 

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace qlsv_dang_nhap.src.DL
+﻿
+class CourseProgram
 {
-    class CourseProgram
-    {
-    long program_id;
-    int course_id;
+    public long program_id {  get; set; }
+    public int course_id { get; set; } 
 }
+
 

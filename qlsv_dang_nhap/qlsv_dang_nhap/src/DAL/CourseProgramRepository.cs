@@ -11,15 +11,14 @@ class CourseProgramRepository
         _connection = ConfigurationManager.ConnectionStrings["sms"].ConnectionString;
     }
 
-    public DataTable getall()
+    public DataTable getall(CourseProgram cp)
 {
         DataTable dt = new DataTable();
         using(var conn = new MySqlConnection(_connection))
     {
             conn.Open();
-            string query = "select c.course_id, p.program_id, p.program_name, c.course_name from course_program cs inner join program p on p.program_id = cs.program_id inner join course c on c.course_id = cs.course_id where program_id = @program_id";
+            string query = $"select c.course_id, p.program_id, p.program_name, c.course_name from course_program cs inner join program p on p.program_id = cs.program_id inner join course c on c.course_id = cs.course_id where p.program_id = {cp.program_id}";
             using var adapter = new MySqlDataAdapter(query,conn);
-
             adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
             dt.PrimaryKey = new DataColumn[] { dt.Columns["program_id"] };
             adapter.Fill(dt);
