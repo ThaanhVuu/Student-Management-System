@@ -58,6 +58,9 @@ namespace qlsv_dang_nhap.View
                 }else if(selectedTab.Name == nameof(CourseTabb))
                 {
                     LoadCourse();
+                }else if (selectedTab.Name == nameof(CPTabb))
+                {
+                    loadMiniList();
                 }
 
             }
@@ -744,7 +747,7 @@ namespace qlsv_dang_nhap.View
                     TabControlMain.SelectedIndex = 3; // Chuyển đến tab Chi tiết CTĐT (index 3)
                     LoadCourseProgram();
                     tenCTDT.IsEnabled = false;
-                    tenCTDT.Text = mct.Text;
+                    tenCTDT.Text = tct.Text;
                 }
             }
         }
@@ -768,6 +771,29 @@ namespace qlsv_dang_nhap.View
             MessageBox.Show("Chức năng thêm môn học vào CTĐT được chọn.");
         }
 
+        private void loadMiniList()
+        {
+            var dt = new DataTable();
+            dt = _courseService.getCourse();
+            miniMonHoc.ItemsSource = dt.DefaultView;
+        }
+        
+        private void miniMonHocc(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedRow = lvCTDT.SelectedItem as DataRowView;
+            if (selectedRow == null) return;
+            // Gán giá trị vào các controls
+            try
+            {
+                // TextBox Mã CTDT và Tên CTDT
+                _originalProgramId = selectedRow["course_id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi chọn dòng môn học: {ex.Message}");
+            }
+        }
+
         private void LoadCourseProgram()
         {
             var cs = new CourseProgram();
@@ -785,7 +811,21 @@ namespace qlsv_dang_nhap.View
             if (result == MessageBoxResult.Yes)
             {
                 // TODO: Thực hiện xóa dữ liệu
-                MessageBox.Show("Đã xóa môn học khỏi CTĐT thành công!");
+                try {
+                    //lay table chitiet ctdt
+                    var cp = new CourseProgram();
+                    cp.program_id = Convert.ToInt32(tenCTDT.Text);
+                    var dt = new DataTable();
+                    dt = _CPService.getAllCourseProgram(cp);
+
+                    _CPService.DeleteCourseFromCP(dt, Convert.ToInt32(mct.Text));
+                    _CPService.saveCourseProgram(dt);
+                    MessageBox.Show("Đã xóa môn học khỏi CTĐT thành công!");
+
+                }catch(Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa môn học trong CTDT {tenCTDT.Text}" + ex.Message);
+                }
             }
         }
         #endregion

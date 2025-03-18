@@ -535,7 +535,16 @@
                                 <TextBlock Text="Danh sách môn học:" FontSize="14" FontWeight="Bold"/>
                             </Border>
                             <Border Grid.Row="2" Margin="10,0,10,0">
-                                <ListBox Height="auto" Width="auto"/>
+                                <ListView x:Name="miniMonHoc" SelectionChanged="miniMonHocc"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Mã MH" Width="0" DisplayMemberBinding="{Binding program_id}"/>
+                                            <GridViewColumn Header="Danh sách môn học" Width="223" DisplayMemberBinding="{Binding course_name}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
                             </Border>
                             <!-- Button thêm/xóa môn học -->
                             <StackPanel Grid.Row="3" Orientation="Vertical"
