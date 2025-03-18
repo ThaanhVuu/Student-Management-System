@@ -17,11 +17,12 @@ class CourseProgramRepository
         using(var conn = new MySqlConnection(_connection))
         {
             conn.Open();
-            string query = "select c.course_id, p.program_id, p.program_name, c.course_name from course_program cs inner join program p on p.program_id = cs.program_id inner join course c on c.course_id = cs.course_id;";
+            string query = "select c.course_id, p.program_id, p.program_name, c.course_name from course_program cs inner join program p on p.program_id = cs.program_id inner join course c on c.course_id = cs.course_id where program_id = @program_id";
             using var adapter = new MySqlDataAdapter(query,conn);
+
             adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-            adapter.Fill(dt);
             dt.PrimaryKey = new DataColumn[] { dt.Columns["program_id"] };
+            adapter.Fill(dt);
         }
         return dt;
     }
