@@ -13,22 +13,21 @@ class CourseProgramService
         return _repo.getall(cs);
     }
 
-    public void saveCourseProgram(DataTable dt)
+    public void addCP(int id, int idp)
     {
-        _repo.addCourseToCP(dt);
+        if (id == null)
+        {
+            throw new ArgumentNullException("Vui lòng chọn môn học cần thêm vào chương trình đào tạo");
+        } if (idp == null)
+        {
+            throw new ArgumentNullException("Chưa chọn chương trình đào tạo");
+        }
+        _repo.addCP(id, idp);
     }
 
-    public void DeleteCourseFromCP(DataTable dt, int id)
+    public void removeCP(int id)
     {
-        foreach (DataRow row in dt.Rows)
-        {
-            if (Convert.ToInt32(row["course_id"]) == id)
-            {
-                row.Delete();
-                return;
-            }
-        }
-        throw new Exception("Khong tim thay mon hoc can xoa" + id);
+        _repo.deleteCP(id);
     }
 }
 

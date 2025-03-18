@@ -768,7 +768,16 @@ namespace qlsv_dang_nhap.View
         private void btnThemMonHoc_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Thêm môn học vào CTĐT
-            MessageBox.Show("Chức năng thêm môn học vào CTĐT được chọn.");
+            try
+            {
+                _CPService.addCP(Convert.ToInt32(idMiniMonHoc), Convert.ToInt32(mct.Text));
+                MessageBox.Show("Thêm môn học cho chương trình đào tạo thành công");
+                LoadCourseProgram();  
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm môn học cho chương trình đào tạo: " + ex.Message);
+            }
+
         }
 
         private void loadMiniList()
@@ -777,16 +786,17 @@ namespace qlsv_dang_nhap.View
             dt = _courseService.getCourse();
             miniMonHoc.ItemsSource = dt.DefaultView;
         }
-        
+
+        string idMiniMonHoc;
         private void miniMonHocc(object sender, SelectionChangedEventArgs e)
         {
-            var selectedRow = lvCTDT.SelectedItem as DataRowView;
+            var selectedRow = miniMonHoc.SelectedItem as DataRowView;
             if (selectedRow == null) return;
             // Gán giá trị vào các controls
             try
             {
-                // TextBox Mã CTDT và Tên CTDT
-                _originalProgramId = selectedRow["course_id"].ToString();
+                idMiniMonHoc = selectedRow["course_id"].ToString(); //lay ma mon hoc o ds mon hoc mini
+                
             }
             catch (Exception ex)
             {
@@ -803,24 +813,38 @@ namespace qlsv_dang_nhap.View
             lvCP.ItemsSource = dt.DefaultView;
         }
 
+        string iidd;
+        private void lvCTDTSelected2(object sender, SelectionChangedEventArgs e)
+        {
+            var selected = lvCP.SelectedItem as DataRowView;
+            if (selected == null) return;
+            try
+            {
+                iidd = selected["course_id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi chọn môn học từ chương trình đào tạo: {ex.Message}");
+            }
+        }
+
         private void btnXoaMonHoc_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Xóa môn học khỏi CTĐT
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa môn học này khỏi CTĐT?", "Xác nhận",
+            MessageBoxResult result = MessageBox.Show($"Bạn có chắc chắn muốn xóa môn học {iidd} khỏi CTĐT?", "Xác nhận",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 // TODO: Thực hiện xóa dữ liệu
                 try {
                     //lay table chitiet ctdt
-                    var cp = new CourseProgram();
-                    cp.program_id = Convert.ToInt32(tenCTDT.Text);
-                    var dt = new DataTable();
-                    dt = _CPService.getAllCourseProgram(cp);
-
-                    _CPService.DeleteCourseFromCP(dt, Convert.ToInt32(mct.Text));
-                    _CPService.saveCourseProgram(dt);
+                    var selectedRow = lvCP.SelectedItem as DataRowView;
+                    if (selectedRow == null) return;
+                    iidd = selectedRow["course_id"].ToString();
+                    int a = int.Parse(iidd);
+                    _CPService.removeCP(a);
                     MessageBox.Show("Đã xóa môn học khỏi CTĐT thành công!");
+                    LoadCourseProgram();
 
                 }catch(Exception ex)
                 {

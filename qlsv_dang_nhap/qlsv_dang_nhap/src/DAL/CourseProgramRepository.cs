@@ -26,16 +26,27 @@ class CourseProgramRepository
         return dt;
     }
 
-    public void addCourseToCP(DataTable dt)
+    public void deleteCP(int id)
     {
         using(var conn = new MySqlConnection(_connection))
         {
             conn.Open();
-            string baseQuery = "SELECT * FROM course_program WHERE 1 = 0";
-            using var adapter = new MySqlDataAdapter(baseQuery, conn);
-            adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-            var builder = new MySqlCommandBuilder(adapter);
-            adapter.Update(dt);
+            string query = $"delete from course_program where course_id = {id}";
+            using var cmd = new MySqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+    }
+    
+    public void addCP(int id, long idp)
+    {
+       using (var conn = new MySqlConnection(_connection))
+        {
+            conn.Open();
+            string query = $"insert into course_program values({idp},{id})";
+            using var cmd = new MySqlCommand( query, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
         }
     }
 
