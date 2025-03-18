@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using qlsv_dang_nhap.srcMVC.model;
+using qlsv_dang_nhap.srcMVC;
 using qlsv_dang_nhap.userControl;
 
 namespace qlsv_dang_nhap.userControl

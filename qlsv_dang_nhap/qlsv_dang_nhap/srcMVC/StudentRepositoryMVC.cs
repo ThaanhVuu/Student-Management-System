@@ -1,10 +1,10 @@
 ﻿// StudentRepository.cs
 using MySql.Data.MySqlClient;
 using System.Windows;
-using qlsv_dang_nhap.srcMVC.model;
+using qlsv_dang_nhap.srcMVC;
 using System.Configuration;
 
-namespace qlsv_dang_nhap.srcMVC.model
+namespace qlsv_dang_nhap.srcMVC
 {
     public class StudentRepositoryMVC
     {
