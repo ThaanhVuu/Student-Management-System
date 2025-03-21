@@ -37,10 +37,18 @@ class CourseService
 
     public void AddCourse(DataTable dt, string name, int credit)
     {
-        DataRow newRow = dt.NewRow();
-        newRow["course_name"] = name;
-        newRow["credit"] = credit;
-        dt.Rows.Add(newRow);
+        if (name == null || credit == null)
+        {
+            throw new Exception("Vui lòng điền đủ thông tin");
+        }
+        else
+        {
+            DataRow newRow = dt.NewRow();
+            newRow["course_name"] = name;
+            newRow["credit"] = credit;
+            dt.Rows.Add(newRow);
+        }
+        
     }
 
     public void DeleteCourse(DataTable dt, int id)
@@ -60,7 +68,7 @@ class CourseService
 
     public void EditCourse(DataTable dt, int id, string name, int credit)
     {
-        foreach(DataRow row in dt.Rows)
+        foreach (DataRow row in dt.Rows)
         {
             if (Convert.ToInt32(row["course_id"]) == id)
             {

@@ -61,7 +61,7 @@
                                     </Border>
                                     <Border Grid.Row="1">
                                         <TextBox x:Name="hoten" 
-                                                 Width="225" Height="20"
+                                                 Width="225" Height="20" FontSize="14"
                                                  VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     </Border>
                                 </Grid>

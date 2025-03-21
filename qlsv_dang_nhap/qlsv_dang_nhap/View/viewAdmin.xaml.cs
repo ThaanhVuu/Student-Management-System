@@ -98,7 +98,6 @@ namespace qlsv_dang_nhap.View
             txtMaHoSo.IsReadOnly = true;
         }
 
-       
         private void LoadDataProgram()
         {
             try
@@ -134,6 +133,7 @@ namespace qlsv_dang_nhap.View
         {
             var dt = _courseService.getCourse();
             lvMonHoc.ItemsSource = dt.DefaultView;
+            courseId.IsEnabled = false;
             //courseId.IsReadOnly = true;
             //lvMonHoc.ReadOnly = false;
             //lvMonHoc.AllowUserToAddRows = true;
@@ -477,8 +477,12 @@ namespace qlsv_dang_nhap.View
 
         private void btnXoaHoSo_Click(object sender, RoutedEventArgs e)
         {
-
-            long id2 = long.Parse(txtMaHoSo.Text);
+            long id2 = 0;
+            if (id2 == 0)
+            {
+                MessageBox.Show("Vui lòng chọn hồ sơ cần xóa"); return;
+            }
+            id2 = long.Parse(txtMaHoSo.Text);
             // TODO: Xóa hồ sơ tuyển sinh
             MessageBoxResult result = MessageBox.Show($"Bạn có chắc chắn muốn xóa hồ sơ tuyển sinh và hồ sơ sinh viên {id2} ?", "Xác nhận",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -879,19 +883,27 @@ namespace qlsv_dang_nhap.View
 
         private void btnThemMH_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Thêm mới môn học
-            int a = Convert.ToInt32(creditCourse.Text);
             try
             {
+                // Kiểm tra dữ liệu hợp lệ
+                if (string.IsNullOrWhiteSpace(txtNameCourse.Text) || !int.TryParse(creditCourse.Text, out int a))
+                {
+                    MessageBox.Show("Vui lòng điền đủ thông tin và số tín chỉ hợp lệ");
+                    return;
+                }
+
+                // Xử lý thêm môn học
                 var dt = _courseService.getCourse();
                 _courseService.AddCourse(dt, txtNameCourse.Text, a);
                 _courseService.saverCourse(dt);
+
                 MessageBox.Show("Thêm môn học thành công");
-                LoadCourse(); CourseResetForm();
+                LoadCourse();
+                CourseResetForm();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm môn học"+ex.Message);
+                MessageBox.Show($"Lỗi khi thêm môn học: {ex.Message}");
             }
         }
 
