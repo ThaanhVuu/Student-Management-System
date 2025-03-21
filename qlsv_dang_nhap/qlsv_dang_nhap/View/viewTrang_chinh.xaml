@@ -370,7 +370,7 @@
                             <Image Source="/images/icons8-test-account-32.png" 
                                    Height="20" Width="20"
                                    Margin="0,0,3,0"/>
-                            <TextBlock Text="Thoát" 
+                            <TextBlock Text="Đăng xuất" 
                                        FontSize="12" Foreground="White" FontWeight="Bold"
                                        VerticalAlignment="Center"/>
                         </StackPanel>

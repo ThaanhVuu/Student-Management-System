@@ -242,11 +242,14 @@ namespace qlsv_dang_nhap.View
 
         private void thoat_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn thoát?", "Xác nhận thoát", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
-                Application.Current.Shutdown();
+                //Application.Current.Shutdown(); 
+                var dangnhap = new Dang_nhap_view();
+                dangnhap.Show();
+                this.Close();
             }
         }
 
